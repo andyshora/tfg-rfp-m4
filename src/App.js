@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Button from '@mui/material/Button';
+
 import CssBaseline from '@mui/material/CssBaseline';
-import { Typography } from '@mui/material';
+import SubImpactSim from './components/SubImpactSim';
+import {
+  Grid, Container, Box
+} from "@mui/material"
 
 import "./styles/_vars-sports.css"
 import "./styles/_global.css"
@@ -30,6 +33,52 @@ const skysportsTheme = createTheme({
   },
   typography: {
     fontFamily: 'Sky Text, Arial',
+    h1: {
+      fontSize: "3rem",
+      fontWeight: 400,
+      color: fgLight
+    },
+    h2: {
+      fontSize: "2.5rem",
+      fontWeight: 400,
+      color: fgLight
+    },
+    h3: {
+      fontSize: "2rem",
+      fontWeight: 400,
+      color: fgLight
+    },
+    h4: {
+      fontSize: "1.5rem",
+      fontWeight: 400,
+      color: fgLight
+    },
+    h5: {
+      fontSize: "1.25rem",
+      fontWeight: 400,
+      color: fgLight
+    },
+    h6: {
+      fontSize: "1rem",
+      fontWeight: 400,
+      color: fgLight
+    },
+    body1: {
+      fontSize: "1.375rem",
+      fontWeight: 400,
+      color: fgLight
+    },
+    body2: {
+      fontSize: "0.875rem",
+      fontWeight: 400,
+      color: fgLight
+    },
+    button: {
+      fontSize: "1rem",
+      fontWeight: 700,
+      textTransform: "none",
+      color: fgLight
+    }
   },
   components: {
     MuiCssBaseline: {
@@ -52,9 +101,15 @@ export default function App() {
   return (
     <ThemeProvider theme={skysportsTheme}>
       <CssBaseline />
-      <Typography variant="h1" component="h1" gutterBottom>Hello World</Typography>
-      <Typography>This is a test</Typography>
-      <Button variant="contained">Hello world</Button>
+      <Container maxWidth="lg">
+        <Grid container spacing={3} justifyContent="center">
+          <Grid item xs={12}>
+            <Box textAlign="center">
+              <SubImpactSim />
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
     </ThemeProvider>
   )
 }
