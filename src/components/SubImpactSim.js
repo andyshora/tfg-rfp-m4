@@ -66,7 +66,7 @@ const Pitch = SC.div`
     
     &::before {
       content: '';
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid #343664;
       width: 1540px;
       height: 540px;
       position: absolute;
@@ -78,6 +78,7 @@ const Pitch = SC.div`
 const PitchBottomTextWrap = SC.div`
   position: absolute;
   bottom: 1rem;
+  right: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -257,7 +258,7 @@ export default function SubImpactSim() {
   }
   function getPlayersOnPitch(players, leftOffset) {
     return players.map((player, index) => (
-        <PlayerOnPitch key={player.name} style={{ left: leftOffset + (140 * player.x), top: 40 + (50 * player.y) }} isActive={player.name === activeSubOff} isHidden={activeSubOff === player.name && activeSubOn}>
+        <PlayerOnPitch key={player.name} style={{ left: leftOffset + (140 * player.x), top: 70 + (50 * player.y) }} isActive={player.name === activeSubOff} isHidden={activeSubOff === player.name && activeSubOn}>
           <Avatar key={index} alt={player.name} src={`/assets/images/players/${player.image}`} />
           <Typography variant="h6" component="h6" gutterBottom>{player.name}</Typography>
           {player.name === activeSubOff ? <Button size="small" variant="subOffCancel" color="secondary" onClick={() => subOff('')} title={`Cancel sub`}><DeleteIcon /></Button> : <Button disabled={activeSubOn} onClick={() => subOff(player.name)} size="small" variant="subOff" color="secondary" title={`See the impact of replacing ${player.name}`}><KeyboardArrowDownIcon /></Button>}
@@ -303,7 +304,7 @@ export default function SubImpactSim() {
     const leftOffset = activeTeamIndex ? 40 : 60;
     return (
       (
-        <PlayerOnPitch key={player.name} style={{ left: leftOffset + (140 * newX), top: 30 + (50 * newY) }} isActive={player.name === activeSubOff} isSub={true}>
+        <PlayerOnPitch key={player.name} style={{ left: leftOffset + (140 * newX), top: 70 + (50 * newY) }} isActive={player.name === activeSubOff} isSub={true}>
           <Avatar alt={player.name} src={`/assets/images/players/${player.image}`} />
           <Typography variant="h6" component="h6" gutterBottom>{player.name}</Typography>
           <Button size="small" variant="subOffCancel" color="secondary" onClick={() => {subOff(''); subOn('');}} title={`Reset`}><DeleteIcon /></Button>
@@ -314,7 +315,7 @@ export default function SubImpactSim() {
   return (
     <Container sx={{ minWidth: 900 }}>
         <Box sx={{ minHeight: 400, background: "linear-gradient(-192deg, #1d238a 0%, #222677 48.5%, #090f68 49%, #0e1151 100%)" }}>
-            <Typography variant="h3" component="h3" gutterBottom>Sub Impact Simulator</Typography>
+            <Typography variant="h3" component="h3" gutterBottom style={{ padding: '1rem 0' }}>Sub Impact Simulator</Typography>
             <LiveScoreWrap>
               <Grid container spacing={2}>
                 <Grid item xs={5.5} align="right">
@@ -334,8 +335,38 @@ export default function SubImpactSim() {
             </LiveScoreWrap>
             <PitchOverflowWrap>
               <Pitch style={{ transform: `translateX(${-activeTeamIndex * 800}px)` }}>
-                <HomePitchOverlay style={{ background: activeTeamIndex === 0 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)' }} />
-                <AwayPitchOverlay style={{ background: activeTeamIndex === 1 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)' }} />
+                <HomePitchOverlay style={{ background: activeTeamIndex === 0 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)' }}>
+                    <svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g id="penalty-box">
+                        <rect x="30" y="170" width="120" height="260" fill="none" stroke="#343664" strokeWidth="1" />
+                      </g>
+                      <g id="penalty-box-d">
+                        <path d="M 150 250 c 50 20 50 80 0 100" stroke="#343664" strokeWidth="1" />
+                      </g>
+                      <g id="six-yard-box">
+                        <rect x="30" y="240" width="30" height="120" fill="none" stroke="#343664" strokeWidth="1" />
+                      </g>
+                      <g id="center-circle">
+                        <circle cx="800" cy="300" r="80" fill="none" stroke="#343664" strokeWidth="1" />
+                      </g>
+                    </svg>
+                  </HomePitchOverlay>
+                <AwayPitchOverlay style={{ background: activeTeamIndex === 1 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)' }}>
+                <svg width="800" height="600" viewBox="0 0 800 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <g id="penalty-box">
+                        <rect x="650" y="170" width="120" height="260" fill="none" stroke="#343664" strokeWidth="1" />
+                      </g>
+                      <g id="penalty-box-d">
+                        <path d="M 650 250 c -50 20 -50 80 0 100" stroke="#343664" strokeWidth="1" />
+                      </g>
+                      <g id="six-yard-box">
+                        <rect x="740" y="240" width="30" height="120" fill="none" stroke="#343664" strokeWidth="1" />
+                      </g>
+                      <g id="center-circle">
+                        <circle cx="0" cy="300" r="80" fill="none" stroke="#343664" strokeWidth="1" />
+                      </g>
+                    </svg>
+                    </AwayPitchOverlay>
               {getPlayersOnPitch(homePlayers, 60)}
               {getPlayersOnPitch(awayPlayers, 40)}
               {activeSubOff && activeSubOn ? getSubCell(activeTeamIndex) : ''}
