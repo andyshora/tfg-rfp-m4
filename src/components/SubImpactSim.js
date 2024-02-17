@@ -22,6 +22,7 @@ import {
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import DeleteIcon from '@mui/icons-material/Cancel';
 
 import { tableCellClasses } from '@mui/material/TableCell';
 
@@ -77,6 +78,16 @@ const PlayerOnPitch = SC.div`
     text-align: center;
     font-size: 0.8rem;
     color: #fff;
+
+    padding: 4px;
+    border-radius: 5px;
+
+    background: ${p => p.isActive ? 'rgba(255,255,255,0.15)' : 'none'};
+    
+
+    > .MuiAvatar-root, > .MuiTypography-root {
+      opacity: ${p => p.isActive ? 0.4 : 1};
+    }
 `
 
 const HomeTeamWrap = SC.div`
@@ -190,8 +201,12 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 export default function SubImpactSim() {
 
   const [activeTeamIndex, setActiveTeamIndex] = React.useState(1);
-  const [activeSubOff, setActiveSubOff] = React.useState(null);
-  const [activeSubOn, setActiveSubOn] = React.useState(null);
+  const [activeSubOff, setActiveSubOff] = React.useState('');
+  const [activeSubOn, setActiveSubOn] = React.useState('');
+
+  function subOff(player) {
+    setActiveSubOff(player)
+  }
   return (
     <Container sx={{ mt: 2, minWidth: 900 }}>
         <Box padding={2} sx={{ minHeight: 400, background: "linear-gradient(-192deg, #1d238a 0%, #222677 48.5%, #090f68 49%, #0e1151 100%)" }}>
@@ -218,17 +233,17 @@ export default function SubImpactSim() {
                 <HomePitchOverlay style={{ background: activeTeamIndex === 0 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)' }} />
                 <AwayPitchOverlay style={{ background: activeTeamIndex === 1 ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0)' }} />
               {homePlayers.map((player, index) => (
-                  <PlayerOnPitch key={player.name} style={{ left: 60 + (140 * player.x), top: 30 + (50 * player.y) }}>
+                  <PlayerOnPitch key={player.name} style={{ left: 60 + (140 * player.x), top: 30 + (50 * player.y) }} isActive={player.name === activeSubOff}>
                     <Avatar key={index} alt={player.name} src={`/assets/images/players/${player.image}`} />
                     <Typography variant="h6" component="h6" gutterBottom>{player.name}</Typography>
-                    <Button size="small" variant="contained" color="secondary" title={`See the impact of replacing ${player.name}`}><KeyboardArrowDownIcon /></Button>
+                    {player.name === activeSubOff ? <Button size="small" variant="contained" color="secondary" onClick={() => subOff('')} title={`Cancel sub`}><DeleteIcon /></Button> : <Button onClick={() => subOff(player.name)} size="small" variant="contained" color="secondary" title={`See the impact of replacing ${player.name}`}><KeyboardArrowDownIcon /></Button>}
                   </PlayerOnPitch>
                 ))}
                 {awayPlayers.map((player, index) => (
-                  <PlayerOnPitch key={player.name} style={{ left: 40 + (140 * player.x), top: 30 + (50 * player.y) }}>
+                  <PlayerOnPitch key={player.name} style={{ left: 40 + (140 * player.x), top: 30 + (50 * player.y) }} isActive={player.name === activeSubOff}>
                     <Avatar key={index} alt={player.name} src={`/assets/images/players/${player.image}`} />
                     <Typography variant="h6" component="h6" gutterBottom>{player.name}</Typography>
-                    <Button size="small" variant="contained" color="secondary" title={`See the impact of replacing ${player.name}`}><KeyboardArrowDownIcon /></Button>
+                    {player.name === activeSubOff ? <Button size="small" variant="contained" color="secondary" onClick={() => subOff('')} title={`Cancel sub`}><DeleteIcon /></Button> : <Button onClick={() => subOff(player.name)} size="small" variant="contained" color="secondary" title={`See the impact of replacing ${player.name}`}><KeyboardArrowDownIcon /></Button>}
                   </PlayerOnPitch>
                 ))}
               </Pitch>
