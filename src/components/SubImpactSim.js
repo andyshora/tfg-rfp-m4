@@ -15,23 +15,40 @@ import {
     TableHead,
     TableRow,
     Paper,
-    Icon
+    Icon,
+    Grid
 } from '@mui/material';
 
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+
 import { tableCellClasses } from '@mui/material/TableCell';
 
 const Pitch = SC.div`
-    width: 100%;
-    max-width: 600px;
-    min-width: 400px;
-    height: 0;
-    padding-top: 40%;
+    
+    height: 600px;
+    width: 600px;
     margin: 1rem auto;
-    background: url('/assets/images/pitch.png') no-repeat center center;
-    background-size: 100% 100%;
-    filter: hue-rotate(115deg) grayscale(0.7) saturate(4) brightness(0.5);
+    background: rgba(0, 0, 0, 0.1);
+    background-size: 850px 540px;
+    // filter: hue-rotate(115deg) grayscale(0.7) saturate(4) brightness(0.5);
 `
+
+const LiveScoreWrap = SC.div``
+const ScoreWrap = SC.div`
+  background: linear-gradient(-192deg, #cd2529 0%, #be2022 48.5%, #b70709 49%, #a00000 100%);
+  border-radius: 5px;
+`
+const PlayerOnPitch = SC.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #fff;
+`
+
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -74,26 +91,55 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     },
   }));
   
-  function createData(name, image, one, two, three) {
-    return { name, image, one, two, three };
+  function createPlayer(name, image = '', one = 0, two = 0, three = 0) {
+    const img = image ? image : `${name.toLowerCase()}.jpg`;
+    return { name, image: img, one, two, three };
   }
+
+  const cityPlayers = [
+    createPlayer('Ederson'),
+    createPlayer('Gvardiol'),
+    createPlayer('Ake'),
+    createPlayer('Dias'),
+    createPlayer('Walker'),
+    createPlayer('Kovacic'),
+    createPlayer('Rodri'),
+    createPlayer('Doku'),
+    createPlayer('Silva'),
+    createPlayer('Foden'),
+    createPlayer('Alvarez')
+  ]
+
+  console.log('cityPlayers', cityPlayers)
   
   const rows = [
-    createData('Kevin De Bruyne', 'kdb.jpg', 6.0, 24, 4.0),
-    createData('Oscar Bobb', 'bobb.jpg', 9.0, 37, 4.3),
-    createData('Matheus Nunes', 'nunes.jpg', 3.7, 67, 4.3),
-    createData('Rico Lewis', 'lewis.jpg', 3.7, 67, 4.3),
-    createData('Jack Grealish', 'grealish.jpg', 3.7, 67, 4.3),
-    
+    createPlayer('Kevin De Bruyne', 'kdb.jpg', 6.0, 24, 4.0),
+    createPlayer('Oscar Bobb', 'bobb.jpg', 9.0, 37, 4.3),
+    createPlayer('Matheus Nunes', 'nunes.jpg', 3.7, 67, 4.3),
+    createPlayer('Rico Lewis', 'lewis.jpg', 3.7, 67, 4.3),
+    createPlayer('Jack Grealish', 'grealish.jpg', 3.7, 67, 4.3),
   ];
 export default function SubImpactSim() {
   return (
     <Container sx={{ mt: 2, minWidth: 900 }}>
         <Box padding={2} sx={{ minHeight: 400, background: "linear-gradient(-192deg, #1d238a 0%, #222677 48.5%, #090f68 49%, #0e1151 100%)" }}>
-            <Typography variant="h1" component="h1" gutterBottom>Sub Impact Simulator</Typography>
-            <Typography>Analyse the potential impact of substitutions right now</Typography>
-
-            <Pitch />
+            <Typography variant="h3" component="h3" gutterBottom>Sub Impact Simulator</Typography>
+            <LiveScoreWrap>
+              <Grid container spacing={2}>
+                <Grid item xs={5.5} align="right"><div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}><Avatar style={{ marginRight: 10 }} alt="" src={`/assets/images/clubs/newcastle.png`} /><Typography component="span">Newcastle United</Typography></div></Grid>
+                <Grid item xs={1}><ScoreWrap>2 - 1</ScoreWrap></Grid>
+                <Grid item xs={5.5} align="left"><div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}><Typography component="span">Manchester City</Typography><Avatar style={{ marginLeft: 10 }} alt="" src={`/assets/images/clubs/city.png`} /></div></Grid>
+              </Grid>
+            </LiveScoreWrap>
+            <Pitch>
+              {cityPlayers.map((player, index) => (
+                <PlayerOnPitch key={player.name}>
+                  <Avatar key={index} alt={player.name} src={`/assets/images/players/${player.image}`} />
+                  <Typography variant="h6" component="h6" gutterBottom>{player.name}</Typography>
+                  <Button size="small" variant="contained" color="secondary" title={`See the impact of replacing ${player.name}`}><KeyboardArrowDownIcon /></Button>
+                </PlayerOnPitch>
+              ))}
+            </Pitch>
         </Box>
       
       <Box sx={{ mt: 2 }} padding={2}>

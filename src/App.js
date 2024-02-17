@@ -77,7 +77,9 @@ const skysportsTheme = createTheme({
       fontSize: "1rem",
       fontWeight: 700,
       textTransform: "none",
-      color: fgLight
+      color: fgLight,
+      background: "linear-gradient(-192deg, #1d238a 0%, #222677 48.5%, #090f68 49%, #0e1151 100%)",
+      textShadow: "0 1px 1px rgba(0, 0, 0, 0.3)",
     }
   },
   components: {
