@@ -99,6 +99,28 @@ const skysportsTheme = createTheme({
         }
       `,
     },
+    MuiButton: {
+      variants: [
+        {
+          props: { variant: 'subOff' },
+          style: {
+            textTransform: 'none',
+            width: 16,
+            padding: '2px',
+            minWidth: 36
+          },
+        },
+        {
+          props: { variant: 'subOffCancel' },
+          style: {
+            textTransform: 'none',
+            width: 16,
+            padding: '2px',
+            minWidth: 36
+          },
+        },
+      ],
+    },
   },
 });
 
