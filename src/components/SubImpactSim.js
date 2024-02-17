@@ -64,6 +64,7 @@ const LiveScoreWrap = SC.div``
 const ScoreWrap = SC.div`
   background: linear-gradient(-192deg, #cd2529 0%, #be2022 48.5%, #b70709 49%, #a00000 100%);
   border-radius: 5px;
+  padding: 8px;
 `
 const PlayerOnPitch = SC.div`
     position: absolute;
@@ -84,6 +85,9 @@ const HomeTeamWrap = SC.div`
   align-items: center;
   justify-content: flex-end;
   white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
 `
 
 const AwayTeamWrap = SC.div`
@@ -92,6 +96,9 @@ const AwayTeamWrap = SC.div`
   align-items: center;
   justify-content: flex-start;
   white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background 0.3s ease;
 `
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -192,15 +199,15 @@ export default function SubImpactSim() {
             <LiveScoreWrap>
               <Grid container spacing={2}>
                 <Grid item xs={5.5} align="right">
-                  <HomeTeamWrap onClick={() => setActiveTeamIndex(0)}>
+                  <HomeTeamWrap onClick={() => setActiveTeamIndex(0)} style={{ background: activeTeamIndex === 0 ? 'linear-gradient(90deg, transparent 25%, rgba(255, 255, 255, 0.2))' : 'none' }}>
                     <Avatar style={{ marginRight: 10 }} alt="" src={`/assets/images/clubs/newcastle.png`} />
-                    <Typography style={{ textDecoration: activeTeamIndex === 0 ? 'underline': 'none' }} component="span">Newcastle United</Typography>
+                    <Typography component="span">Newcastle United</Typography>
                   </HomeTeamWrap>
                 </Grid>
                 <Grid item xs={1}><ScoreWrap>2 - 1</ScoreWrap></Grid>
                 <Grid item xs={5.5} align="left">
-                  <AwayTeamWrap onClick={() => setActiveTeamIndex(1)}>
-                    <Typography component="span" style={{ textDecoration: activeTeamIndex === 1 ? 'underline': 'none' }}>Manchester City</Typography>
+                  <AwayTeamWrap onClick={() => setActiveTeamIndex(1)} style={{ background: activeTeamIndex === 1 ? 'linear-gradient(-90deg, transparent 25%, rgba(255, 255, 255, 0.2))' : 'none' }}>
+                    <Typography component="span">Manchester City</Typography>
                     <Avatar style={{ marginLeft: 10 }} alt="" src={`/assets/images/clubs/city.png`} />
                   </AwayTeamWrap>
                 </Grid>
