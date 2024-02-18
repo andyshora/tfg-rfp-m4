@@ -96,6 +96,37 @@ export const SubTextWrap = styled.div`
 `;
 
 export const LiveScoreWrap = styled.div``;
+export const MatchPredictionWrap = styled.div`
+  position: absolute;
+  width: 600px;
+  left: 50%;
+  margin-left: -300px;
+  top: 140px;
+`;
+
+export const MatchPredictionBarWrap = styled.div`
+  height: 8px;
+  width: 100px;
+  position: relative;
+  background: rgba(0 0 0 / 25%);
+
+  > div {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 0;
+  }
+`;
+
+export const InsightsChipsWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  margin: 0;
+`;
+
 export const ScoreWrap = styled.div`
 position: relative;
   background: linear-gradient(

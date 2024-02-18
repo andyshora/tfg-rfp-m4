@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
+import chroma from "chroma-js";
 
 import {
   Avatar,
@@ -15,6 +16,7 @@ import {
   TableRow,
   Grid,
   Chip,
+  Tooltip,
 } from "@mui/material";
 
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -23,6 +25,7 @@ import SubOnIcon from "@mui/icons-material/ArrowDropUp";
 import SubOffIcon from "@mui/icons-material/ArrowDropDown";
 import DeleteIcon from "@mui/icons-material/Clear";
 import InjuredIcon from "@mui/icons-material/Healing";
+import LightbulbIcon from "@mui/icons-material/Lightbulb";
 
 import { tableCellClasses } from "@mui/material/TableCell";
 
@@ -36,14 +39,30 @@ import {
   PitchBottomTextWrap,
   SubTextWrap,
   LiveScoreWrap,
+  MatchPredictionWrap,
+  MatchPredictionBarWrap,
   ScoreWrap,
   PlayerOnPitch,
   HomeTeamWrap,
   AwayTeamWrap,
   HintWrap,
+  InsightsChipsWrap,
 } from "./SubImpactSim.styles";
 
-import { homePlayers, awayPlayers, homeSubs, awaySubs } from "../data/index";
+import {
+  homePlayers,
+  awayPlayers,
+  homeSubs,
+  awaySubs,
+  subInsights,
+} from "../data/index";
+
+const predictionColorScale = chroma.scale([
+  "#FF0000",
+  "#FFBF00",
+  "#0bff48",
+  "white",
+]);
 
 const Bench = () => (
   <svg
@@ -192,8 +211,7 @@ export default function SubImpactSim() {
       </PlayerOnPitch>
     ));
   }
-  function getSubsTable(players, teamIndex) {
-    console.log("players", players, teamIndex);
+  function getSubsTable(players) {
     return (
       <TableBody>
         {players.map((row) => (
@@ -226,6 +244,41 @@ export default function SubImpactSim() {
                 <SubOnIcon
                   style={{ color: "lime", top: 7, position: "relative" }}
                 />
+              ) : (
+                ""
+              )}
+            </StyledTableCell>
+            <StyledTableCell align="left">
+              {Object.keys(subInsights).includes(row.name) ? (
+                <InsightsChipsWrap>
+                  {subInsights[row.name].map((insight, i) => (
+                    <Tooltip
+                      key={`insight-${row.name}-${i}`}
+                      title={insight}
+                      variant="light"
+                      placement="top"
+                      color="secondary"
+                      arrow
+                    >
+                      <Chip
+                        label={
+                          <LightbulbIcon
+                            style={{
+                              color: "white",
+                              width: 14,
+                              height: 14,
+                              marginTop: 4,
+                            }}
+                          />
+                        }
+                        color="primary"
+                        variant="outlined"
+                        size="small"
+                        style={{ marginRight: 3 }}
+                      />
+                    </Tooltip>
+                  ))}
+                </InsightsChipsWrap>
               ) : (
                 ""
               )}
@@ -393,7 +446,7 @@ export default function SubImpactSim() {
                 <Typography component="span">Newcastle United</Typography>
               </HomeTeamWrap>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={1} align="center">
               <ScoreWrap mins={62}>2 - 1</ScoreWrap>
             </Grid>
             <Grid item xs={5.5} align="left">
@@ -416,6 +469,49 @@ export default function SubImpactSim() {
             </Grid>
           </Grid>
         </LiveScoreWrap>
+        <MatchPredictionWrap>
+          <Grid container spacing={2}>
+            <Grid item xs={4} align="center">
+              <MatchPredictionBarWrap>
+                <div
+                  style={{
+                    width: "63%",
+                    background: predictionColorScale(0.63).css(),
+                  }}
+                ></div>
+              </MatchPredictionBarWrap>
+              <Typography variant="h6" component="h6">
+                Win: 63%
+              </Typography>
+            </Grid>
+            <Grid item xs={4} align="center">
+              <MatchPredictionBarWrap>
+                <div
+                  style={{
+                    width: "28%",
+                    background: predictionColorScale(0.28).css(),
+                  }}
+                ></div>
+              </MatchPredictionBarWrap>
+              <Typography variant="h6" component="h6">
+                Draw: 28%
+              </Typography>
+            </Grid>
+            <Grid item xs={4} align="center">
+              <MatchPredictionBarWrap>
+                <div
+                  style={{
+                    width: "9%",
+                    background: predictionColorScale(0.09).css(),
+                  }}
+                ></div>
+              </MatchPredictionBarWrap>
+              <Typography variant="h6" component="h6">
+                Win: 9%
+              </Typography>
+            </Grid>
+          </Grid>
+        </MatchPredictionWrap>
         <PitchOverflowWrap>
           <Pitch
             style={{ transform: `translateX(${-activeTeamIndex * 800}px)` }}
@@ -578,6 +674,7 @@ export default function SubImpactSim() {
                 </StyledTableCell>
                 <StyledTableCell width={1}>&nbsp;</StyledTableCell>
                 <StyledTableCell align="left">&nbsp;</StyledTableCell>
+                <StyledTableCell align="left">Insights</StyledTableCell>
                 <StyledTableCell align="left">Traits</StyledTableCell>
                 <StyledTableCell align="left">Quality</StyledTableCell>
                 <StyledTableCell align="left">Form</StyledTableCell>

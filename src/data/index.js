@@ -10,6 +10,20 @@ function createPlayer(
   return { name, image: img, x, y, tags, recentGames };
 }
 
+export const subInsights = {
+  "Kevin De Bruyne": [
+    "Returning from a hamstring injury which has kept him out for 3 months.",
+    "Scored or assisted in previous 5 games before injury.",
+    "Assisted in all games when coming on as a sub last season.",
+    "Scored in last 3 fixtures against Newcastle.",
+  ],
+  "Oscar Bobb": [
+    "Highly rated 20yo, already has 1 goal in 4 appearances for Norway.",
+    "Scored 3 goals in last 5 games for the U23s.",
+    "Has been training with the first team for just 3 weeks.",
+  ],
+};
+
 export const homePlayers = [
   createPlayer("Dubravka", "", 0, 4),
   createPlayer("Burn", "", 1, 0),

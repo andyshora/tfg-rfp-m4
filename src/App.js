@@ -99,6 +99,15 @@ const skysportsTheme = createTheme({
         }
       `,
     },
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: "white",
+          color: "black",
+          fontSize: "1rem",
+        },
+      },
+    },
     MuiButton: {
       variants: [
         {
