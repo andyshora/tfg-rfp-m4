@@ -109,6 +109,7 @@ export const MatchPredictionBarWrap = styled.div`
   width: 100px;
   position: relative;
   background: rgba(0 0 0 / 25%);
+  position: relative;
 
   > div {
     position: absolute;
@@ -116,6 +117,26 @@ export const MatchPredictionBarWrap = styled.div`
     left: 0;
     top: 0;
     width: 0;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    right: 0;
+    bottom: -11px;
+    width: 0;
+    background: #fff;
+    font-size: 0.8rem;
+    opacity: ${(p) => (p.deltaShowing ? 1 : 0)};
+    transition: opacity 0.3s ease;
+    content: "${(p) => {
+      if (p.delta > 0) {
+        return `(+${p.delta}%)`;
+      } else {
+        return `(${p.delta}%)`;
+      }
+    }}";
   }
 `;
 

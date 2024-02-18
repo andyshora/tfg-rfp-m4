@@ -164,6 +164,8 @@ export default function SubImpactSim() {
   const [activeSubOff, setActiveSubOff] = React.useState("");
   const [activeSubOn, setActiveSubOn] = React.useState("");
 
+  const preds = activeSubOn && activeSubOff ? [53, 36.5, 10.5] : [63, 28, 9];
+
   function subOff(player) {
     setActiveSubOff(player);
   }
@@ -472,42 +474,51 @@ export default function SubImpactSim() {
         <MatchPredictionWrap>
           <Grid container spacing={2}>
             <Grid item xs={4} align="center">
-              <MatchPredictionBarWrap>
+              <MatchPredictionBarWrap
+                delta={-10}
+                deltaShowing={activeSubOff && activeSubOn}
+              >
                 <div
                   style={{
-                    width: "63%",
-                    background: predictionColorScale(0.63).css(),
+                    width: `${preds[0]}%`,
+                    background: predictionColorScale(preds[0] / 100).css(),
                   }}
                 ></div>
               </MatchPredictionBarWrap>
               <Typography variant="h6" component="h6">
-                Win: 63%
+                Win: {preds[0]}%
               </Typography>
             </Grid>
             <Grid item xs={4} align="center">
-              <MatchPredictionBarWrap>
+              <MatchPredictionBarWrap
+                delta={8.5}
+                deltaShowing={activeSubOff && activeSubOn}
+              >
                 <div
                   style={{
-                    width: "28%",
-                    background: predictionColorScale(0.28).css(),
+                    width: `${preds[1]}%`,
+                    background: predictionColorScale(preds[1] / 100).css(),
                   }}
                 ></div>
               </MatchPredictionBarWrap>
               <Typography variant="h6" component="h6">
-                Draw: 28%
+                Draw: {preds[1]}%
               </Typography>
             </Grid>
             <Grid item xs={4} align="center">
-              <MatchPredictionBarWrap>
+              <MatchPredictionBarWrap
+                delta={1.5}
+                deltaShowing={activeSubOff && activeSubOn}
+              >
                 <div
                   style={{
-                    width: "9%",
-                    background: predictionColorScale(0.09).css(),
+                    width: `${preds[2]}%`,
+                    background: predictionColorScale(preds[2] / 100).css(),
                   }}
                 ></div>
               </MatchPredictionBarWrap>
               <Typography variant="h6" component="h6">
-                Win: 9%
+                Win: {preds[2]}%
               </Typography>
             </Grid>
           </Grid>
