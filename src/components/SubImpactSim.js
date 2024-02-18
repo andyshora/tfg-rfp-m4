@@ -35,6 +35,7 @@ import {
   PitchOverflowWrap,
   HomePitchOverlay,
   AwayPitchOverlay,
+  Header,
   Pitch,
   PitchBottomTextWrap,
   SubTextWrap,
@@ -176,7 +177,7 @@ export default function SubImpactSim() {
     return players.map((player, index) => (
       <PlayerOnPitch
         key={player.name}
-        style={{ left: leftOffset + 140 * player.x, top: 70 + 50 * player.y }}
+        style={{ left: leftOffset + 140 * player.x, top: 50 + 50 * player.y }}
         isActive={player.name === activeSubOff}
         isHidden={activeSubOff === player.name && activeSubOn}
       >
@@ -385,7 +386,7 @@ export default function SubImpactSim() {
     return (
       <PlayerOnPitch
         key={player.name}
-        style={{ left: leftOffset + 140 * newX, top: 70 + 50 * newY }}
+        style={{ left: leftOffset + 140 * newX, top: 50 + 50 * newY }}
         isActive={player.name === activeSubOff}
         isSub={true}
       >
@@ -412,7 +413,7 @@ export default function SubImpactSim() {
     );
   }
   return (
-    <Container sx={{ minWidth: 900 }}>
+    <div>
       <Box
         sx={{
           minHeight: 400,
@@ -420,109 +421,20 @@ export default function SubImpactSim() {
             "linear-gradient(-192deg, #1d238a 0%, #222677 48.5%, #090f68 49%, #0e1151 100%)",
         }}
       >
-        <Typography
-          variant="h3"
-          component="h3"
-          gutterBottom
-          style={{ padding: "1rem 0" }}
-        >
-          Sub Impact Simulator
-        </Typography>
-        <LiveScoreWrap>
-          <Grid container spacing={2}>
-            <Grid item xs={5.5} align="right">
-              <HomeTeamWrap
-                onClick={() => setActiveTeamIndex(0)}
-                style={{
-                  background:
-                    activeTeamIndex === 0
-                      ? "linear-gradient(90deg, transparent 25%, rgba(255, 255, 255, 0.2))"
-                      : "none",
-                }}
-              >
-                <Avatar
-                  style={{ marginRight: 10 }}
-                  alt=""
-                  src={`/assets/images/clubs/newcastle.png`}
-                />
-                <Typography component="span">Newcastle United</Typography>
-              </HomeTeamWrap>
-            </Grid>
-            <Grid item xs={1} align="center">
-              <ScoreWrap mins={62}>2 - 1</ScoreWrap>
-            </Grid>
-            <Grid item xs={5.5} align="left">
-              <AwayTeamWrap
-                onClick={() => setActiveTeamIndex(1)}
-                style={{
-                  background:
-                    activeTeamIndex === 1
-                      ? "linear-gradient(-90deg, transparent 25%, rgba(255, 255, 255, 0.2))"
-                      : "none",
-                }}
-              >
-                <Typography component="span">Manchester City</Typography>
-                <Avatar
-                  style={{ marginLeft: 10 }}
-                  alt=""
-                  src={`/assets/images/clubs/city.png`}
-                />
-              </AwayTeamWrap>
-            </Grid>
-          </Grid>
-        </LiveScoreWrap>
-        <MatchPredictionWrap>
-          <Grid container spacing={2}>
-            <Grid item xs={4} align="center">
-              <MatchPredictionBarWrap
-                delta={-10}
-                deltaShowing={activeSubOff && activeSubOn}
-              >
-                <div
-                  style={{
-                    width: `${preds[0]}%`,
-                    background: predictionColorScale(preds[0] / 100).css(),
-                  }}
-                ></div>
-              </MatchPredictionBarWrap>
-              <Typography variant="h6" component="h6">
-                Win: {preds[0]}%
-              </Typography>
-            </Grid>
-            <Grid item xs={4} align="center">
-              <MatchPredictionBarWrap
-                delta={8.5}
-                deltaShowing={activeSubOff && activeSubOn}
-              >
-                <div
-                  style={{
-                    width: `${preds[1]}%`,
-                    background: predictionColorScale(preds[1] / 100).css(),
-                  }}
-                ></div>
-              </MatchPredictionBarWrap>
-              <Typography variant="h6" component="h6">
-                Draw: {preds[1]}%
-              </Typography>
-            </Grid>
-            <Grid item xs={4} align="center">
-              <MatchPredictionBarWrap
-                delta={1.5}
-                deltaShowing={activeSubOff && activeSubOn}
-              >
-                <div
-                  style={{
-                    width: `${preds[2]}%`,
-                    background: predictionColorScale(preds[2] / 100).css(),
-                  }}
-                ></div>
-              </MatchPredictionBarWrap>
-              <Typography variant="h6" component="h6">
-                Win: {preds[2]}%
-              </Typography>
-            </Grid>
-          </Grid>
-        </MatchPredictionWrap>
+        <Header>
+          <Typography
+            variant="h3"
+            component="h3"
+            gutterBottom
+            style={{ padding: "1rem 0 0", textAlign: "left" }}
+          >
+            Sub
+            <br />
+            Impact
+            <br />
+            Sim
+          </Typography>
+        </Header>
         <PitchOverflowWrap>
           <Pitch
             style={{ transform: `translateX(${-activeTeamIndex * 800}px)` }}
@@ -674,45 +586,196 @@ export default function SubImpactSim() {
           </PitchBottomTextWrap>
         </PitchOverflowWrap>
       </Box>
-
-      <Box sx={{ mt: 2 }} padding={2}>
-        <TableContainer>
-          <Table sx={{ minWidth: 700 }} aria-label="customized table">
-            <TableHead>
-              <StyledHeaderTableRow>
-                <StyledTableCell align="center" width={1}>
-                  Sub In
-                </StyledTableCell>
-                <StyledTableCell width={1}>&nbsp;</StyledTableCell>
-                <StyledTableCell align="left">&nbsp;</StyledTableCell>
-                <StyledTableCell align="left">Insights</StyledTableCell>
-                <StyledTableCell align="left">Traits</StyledTableCell>
-                <StyledTableCell align="left">Quality</StyledTableCell>
-                <StyledTableCell align="left">Form</StyledTableCell>
-              </StyledHeaderTableRow>
-            </TableHead>
-            {getSubsTable(
-              activeTeamIndex ? awaySubs : homeSubs,
-              activeTeamIndex
-            )}
-          </Table>
-        </TableContainer>
-      </Box>
-      <HintWrap style={{ top: 90 }}>
-        <Typography variant="caption" component="p" gutterBottom>
-          1. Select team
+      <div
+        style={{
+          width: "100%",
+          background: "linear-gradient(0deg, transparent, #00000059)",
+          borderRadius: 5,
+        }}
+      >
+        <Container maxWidth="lg">
+          <LiveScoreWrap>
+            <Grid container spacing={2} style={{}}>
+              <Grid item xs={5.5} align="right">
+                <HomeTeamWrap
+                  onClick={() => setActiveTeamIndex(0)}
+                  style={{
+                    background:
+                      activeTeamIndex === 0
+                        ? "linear-gradient(90deg, transparent 25%, rgba(255, 255, 255, 0.2))"
+                        : "none",
+                  }}
+                >
+                  <Avatar
+                    style={{ marginRight: 10 }}
+                    alt=""
+                    src={`/assets/images/clubs/newcastle.png`}
+                  />
+                  <Typography component="span">Newcastle United</Typography>
+                </HomeTeamWrap>
+              </Grid>
+              <Grid item xs={1} align="center">
+                <ScoreWrap mins={62}>2 - 1</ScoreWrap>
+              </Grid>
+              <Grid item xs={5.5} align="left">
+                <AwayTeamWrap
+                  onClick={() => setActiveTeamIndex(1)}
+                  style={{
+                    background:
+                      activeTeamIndex === 1
+                        ? "linear-gradient(-90deg, transparent 25%, rgba(255, 255, 255, 0.2))"
+                        : "none",
+                  }}
+                >
+                  <Typography component="span">Manchester City</Typography>
+                  <Avatar
+                    style={{ marginLeft: 10 }}
+                    alt=""
+                    src={`/assets/images/clubs/city.png`}
+                  />
+                </AwayTeamWrap>
+              </Grid>
+            </Grid>
+          </LiveScoreWrap>
+        </Container>
+      </div>
+      <Container maxWidth="lg">
+        <MatchPredictionWrap>
+          <Grid
+            container
+            spacing={2}
+            style={{
+              background: "linear-gradient(0deg, transparent, #00000059)",
+              borderRadius: 5,
+            }}
+          >
+            <Grid item xs={4} align="center">
+              <MatchPredictionBarWrap
+                delta={-10}
+                deltaShowing={activeSubOff && activeSubOn}
+                deltaColor={
+                  -10 > 0 ? "white" : predictionColorScale(-10 / 100).css()
+                }
+              >
+                <div
+                  style={{
+                    width: `${preds[0]}%`,
+                    background: predictionColorScale(preds[0] / 100).css(),
+                  }}
+                ></div>
+              </MatchPredictionBarWrap>
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ fontFamily: "monospace" }}
+              >
+                Home Win: {preds[0]}%
+              </Typography>
+            </Grid>
+            <Grid item xs={4} align="center">
+              <MatchPredictionBarWrap
+                delta={8.5}
+                deltaShowing={activeSubOff && activeSubOn}
+                deltaColor={
+                  8.5 > 0 ? "white" : predictionColorScale(8.5 / 100).css()
+                }
+              >
+                <div
+                  style={{
+                    width: `${preds[1]}%`,
+                    background: predictionColorScale(preds[1] / 100).css(),
+                  }}
+                ></div>
+              </MatchPredictionBarWrap>
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ fontFamily: "monospace" }}
+              >
+                Draw: {preds[1]}%
+              </Typography>
+            </Grid>
+            <Grid item xs={4} align="center">
+              <MatchPredictionBarWrap
+                delta={1.5}
+                deltaShowing={activeSubOff && activeSubOn}
+                deltaColor={
+                  1.5 > 0 ? "white" : predictionColorScale(1.5 / 100).css()
+                }
+              >
+                <div
+                  style={{
+                    width: `${preds[2]}%`,
+                    background: predictionColorScale(preds[2] / 100).css(),
+                  }}
+                ></div>
+              </MatchPredictionBarWrap>
+              <Typography
+                variant="h6"
+                component="h6"
+                style={{ fontFamily: "monospace" }}
+              >
+                Away Win: {preds[2]}%
+              </Typography>
+            </Grid>
+          </Grid>
+        </MatchPredictionWrap>
+      </Container>
+      <Container maxWidth="lg">
+        <Box sx={{ mt: 2 }} padding={2}>
+          <TableContainer>
+            <Table sx={{ minWidth: 700 }} aria-label="customized table">
+              <TableHead>
+                <StyledHeaderTableRow>
+                  <StyledTableCell align="center" width={1}>
+                    Sub In
+                  </StyledTableCell>
+                  <StyledTableCell width={1}>&nbsp;</StyledTableCell>
+                  <StyledTableCell align="left">&nbsp;</StyledTableCell>
+                  <StyledTableCell align="left">Insights</StyledTableCell>
+                  <StyledTableCell align="left">Traits</StyledTableCell>
+                  <StyledTableCell align="left">Quality</StyledTableCell>
+                  <StyledTableCell align="left">Form</StyledTableCell>
+                </StyledHeaderTableRow>
+              </TableHead>
+              {getSubsTable(
+                activeTeamIndex ? awaySubs : homeSubs,
+                activeTeamIndex
+              )}
+            </Table>
+          </TableContainer>
+        </Box>
+      </Container>
+      <HintWrap style={{ top: 610 }}>
+        <div>
+          <Typography variant="caption" component="p" gutterBottom>
+            Select team
+          </Typography>
+        </div>
+        <Typography variant="caption" component="em" gutterBottom>
+          Hint: select Man City
         </Typography>
       </HintWrap>
       <HintWrap style={{ top: 220 }}>
-        <Typography variant="caption" component="p" gutterBottom>
-          2. Select player to sub off
+        <div>
+          <Typography variant="caption" component="p" gutterBottom>
+            Select player to sub off
+          </Typography>
+        </div>
+        <Typography variant="caption" component="em" gutterBottom>
+          Hint: replace Silva
         </Typography>
       </HintWrap>
-      <HintWrap style={{ top: 740 }}>
-        <Typography variant="caption" component="p" gutterBottom>
-          3. Select replacement
+      <HintWrap style={{ top: 700 }}>
+        <div>
+          <Typography variant="caption" component="p" gutterBottom>
+            Select replacement
+          </Typography>
+        </div>
+        <Typography variant="caption" component="em" gutterBottom>
+          Hint: bring on Kevin De Bruyne
         </Typography>
       </HintWrap>
-    </Container>
+    </div>
   );
 }

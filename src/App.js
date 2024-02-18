@@ -3,7 +3,6 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import SubImpactSim from "./components/SubImpactSim";
-import { Grid, Container, Box } from "@mui/material";
 
 import "./styles/_vars-sports.css";
 import "./styles/_global.css";
@@ -137,15 +136,9 @@ export default function App() {
   return (
     <ThemeProvider theme={skysportsTheme}>
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Grid container spacing={3} justifyContent="center">
-          <Grid item xs={12}>
-            <Box textAlign="center">
-              <SubImpactSim />
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
+      <div>
+        <SubImpactSim />
+      </div>
     </ThemeProvider>
   );
 }

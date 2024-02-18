@@ -1,19 +1,39 @@
 import styled from "@emotion/styled";
 
+export const Header = styled.header`
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-bottom: 1px solid white;
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  background: #0e1151;
+  clip-path: polygon(0 0, 100% 0, 84% 100%, 0% 100%);
+`;
+
 export const HintWrap = styled.div`
   display: flex;
   position: absolute;
   left: 0;
-  font-size: 1rem;
-  padding: 0.5rem;
-  border-radius: 0 5px 5px 0;
-  background: linear-gradient(
-    -192deg,
-    #1d238a 0%,
-    #222677 48.5%,
-    #090f68 49%,
-    #0e1151 100%
-  );
+  flex-direction: column;
+
+  > div {
+    font-size: 1rem;
+    padding: 0.5rem 1.5rem 0.5rem 0.5rem;
+    text-align: left;
+    clip-path: polygon(0% 0%, 90% 0, 100% 50%, 90% 100%, 0% 100%);
+
+    background: #0e1151;
+  }
+
+  > em {
+    font-size: 0.7rem;
+    font-style: italic;
+    margin-left: 1rem;
+    text-align: left;
+    position: absolute;
+    top: 2.5rem;
+    width: 200px;
+  }
 `;
 
 export const AchievementsWrap = styled.div`
@@ -61,7 +81,7 @@ export const Pitch = styled.div`
   position: relative;
   height: 600px;
   width: 1600px;
-  margin: 1rem auto;
+  margin: 0 auto 0;
   background: rgba(0, 0, 0, 0.1);
   transition: all 1s ease;
 
@@ -79,7 +99,7 @@ export const Pitch = styled.div`
 export const PitchBottomTextWrap = styled.div`
   position: absolute;
   bottom: 1rem;
-  right: 1rem;
+  left: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,13 +115,13 @@ export const SubTextWrap = styled.div`
   padding: 0 10px;
 `;
 
-export const LiveScoreWrap = styled.div``;
+export const LiveScoreWrap = styled.div`
+  padding: 1rem 0;
+`;
 export const MatchPredictionWrap = styled.div`
-  position: absolute;
+  position: relative;
   width: 600px;
-  left: 50%;
-  margin-left: -300px;
-  top: 140px;
+  margin: 1rem auto;
 `;
 
 export const MatchPredictionBarWrap = styled.div`
@@ -124,9 +144,9 @@ export const MatchPredictionBarWrap = styled.div`
     position: absolute;
     height: 100%;
     right: 0;
-    bottom: -11px;
+    bottom: -30px;
+    margin-right: 40px;
     width: 0;
-    background: #fff;
     font-size: 0.8rem;
     opacity: ${(p) => (p.deltaShowing ? 1 : 0)};
     transition: opacity 0.3s ease;
@@ -137,6 +157,8 @@ export const MatchPredictionBarWrap = styled.div`
         return `(${p.delta}%)`;
       }
     }}";
+    font-family: monospace;
+    color: ${(p) => p.deltaColor};
   }
 `;
 
@@ -169,7 +191,11 @@ position: relative;
     margin-left: -20px;
     text-align: center;
     left: 50%;
-    top: -20px;
+    top: -21px;
+    background: black;
+    color: white;
+    padding: 2px 4px 0 4px;
+    border-radius: 2px 2px 0 0;
   }
 `;
 export const PlayerOnPitch = styled.div`
