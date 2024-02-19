@@ -49,7 +49,6 @@ import {
   AwayTeamWrap,
   HintWrap,
   InsightsChipsWrap,
-  FeedOverlay,
   RadarWrap,
   LogoWrap,
   StatsWrap,
@@ -912,11 +911,6 @@ export default function SubImpactSim() {
           Hint: bring on Kevin De Bruyne
         </Typography>
       </HintWrap>
-      <FeedOverlay>
-        <Typography variant="h4" component="h4" gutterBottom>
-          Feed
-        </Typography>
-      </FeedOverlay>
     </div>
   );
 }

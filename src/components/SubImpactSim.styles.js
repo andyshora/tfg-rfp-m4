@@ -23,19 +23,6 @@ export const Header = styled.header`
   }
 `;
 
-export const FeedOverlay = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 400px;
-  height: 400px;
-  background: #0e1151;
-  border: 1px solid white;
-  padding: 1rem;
-  color: white;
-  display: none;
-`;
-
 export const StatsWrap = styled.section`
   padding: 0.5rem;
   position: relative;

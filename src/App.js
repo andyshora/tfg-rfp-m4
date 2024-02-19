@@ -3,11 +3,15 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import SubImpactSim from "./components/SubImpactSim";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 
 import "./styles/_vars-sports.css";
 import "./styles/_global.css";
 
 import SkyTextFont from "./styles/fonts/sky-regular.woff";
+import { Button, Typography } from "@mui/material";
+
+import { AppWrap, FeedHandleWrap, FeedWrap } from "./App.styles";
 
 const fgLight = "#fff";
 const skyPlPrimary = "#030c7e";
@@ -133,12 +137,55 @@ const skysportsTheme = createTheme({
 });
 
 export default function App() {
+  const [feedDrawerOpen, setFeedDrawerOpen] = React.useState(false);
+  function toggleDrawer(open) {
+    setFeedDrawerOpen(open);
+  }
   return (
     <ThemeProvider theme={skysportsTheme}>
-      <CssBaseline />
-      <div>
-        <SubImpactSim />
-      </div>
+      <AppWrap>
+        <CssBaseline />
+        <div>
+          <SubImpactSim />
+        </div>
+        <FeedHandleWrap>
+          <Typography
+            style={{ cursor: "pointer" }}
+            onClick={() => toggleDrawer(true)}
+            variant="h5"
+          >
+            Open TFG Insights
+          </Typography>
+        </FeedHandleWrap>
+        <SwipeableDrawer
+          anchor={"right"}
+          open={feedDrawerOpen}
+          onClose={() => toggleDrawer(false)}
+          onOpen={() => toggleDrawer(true)}
+          hideBackdrop={true}
+          transitionDuration={{ enter: 500, exit: 500 }}
+          variant="persistent"
+          style={{
+            background: "#0e1151",
+          }}
+        >
+          <FeedWrap>
+            <div style={{ position: "absolute", right: "1rem" }}>
+              <Button
+                size="small"
+                variant="outlined"
+                color="primary"
+                onClick={() => toggleDrawer(false)}
+              >
+                Close
+              </Button>
+            </div>
+            <Typography variant="h4" component="h4" gutterBottom>
+              TFG Insights Feed
+            </Typography>
+          </FeedWrap>
+        </SwipeableDrawer>
+      </AppWrap>
     </ThemeProvider>
   );
 }
