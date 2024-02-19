@@ -868,7 +868,7 @@ export default function SubImpactSim() {
                       color="secondary"
                       arrow
                     >
-                      Player Quality
+                      Quality Rank
                     </Tooltip>
                   </StyledTableCell>
                   <StyledTableCell align="left">Form</StyledTableCell>
