@@ -531,16 +531,15 @@ export default function SubImpactSim() {
             />
           </LogoWrap>
           <Typography
-            variant="h3"
-            component="h3"
+            variant="h4"
+            component="h4"
             gutterBottom
-            style={{ padding: "1rem 0 0", textAlign: "left" }}
+            style={{
+              padding: "1.5rem 0 0",
+              textAlign: "left",
+            }}
           >
-            Sub
-            <br />
-            Impact
-            <br />
-            Sim
+            Sub Impact
           </Typography>
         </Header>
         <PitchOverflowWrap>
