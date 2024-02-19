@@ -1,9 +1,10 @@
 function createPlayer(
   [name, image = "", x = 0, y = 0, tags = [], recentGames = []],
-  impactOnMatch = [0, 0, 0]
+  impactOnMatch = [0, 0, 0],
+  quality = "-"
 ) {
   const img = image ? image : `${name.toLowerCase()}.jpg`;
-  return { name, image: img, x, y, tags, recentGames, impactOnMatch };
+  return { name, image: img, x, y, tags, recentGames, impactOnMatch, quality };
 }
 
 export const subInsights = {
@@ -55,7 +56,7 @@ export const homeSubs = [
       "",
       3.5,
       1,
-      ["winger"],
+      ["Winger"],
       [
         ["bench", -1],
         ["bench", -1],
@@ -70,7 +71,7 @@ export const homeSubs = [
       "",
       3.5,
       7,
-      ["winger"],
+      ["Winger"],
       [
         ["bench", -1],
         ["bench", -1],
@@ -85,7 +86,7 @@ export const homeSubs = [
       "",
       3.5,
       7,
-      ["leader", "defensive rock"],
+      ["Leader", "Defensive Rock"],
       [
         ["start", 7.2],
         ["bench", -1],
@@ -103,14 +104,15 @@ export const awaySubs = [
       "kdb.jpg",
       7,
       4,
-      ["playmaker"],
+      ["Playmaker"],
       [
         ["injured", -1],
         ["injured", -1],
         ["injured", -1],
       ],
     ],
-    [-1, -0.5, 1.5]
+    [-1, -0.5, 1.5],
+    "1st"
   ),
   createPlayer(
     [
@@ -118,14 +120,15 @@ export const awaySubs = [
       "bobb.jpg",
       7,
       7,
-      ["inverted winger"],
+      ["Inverted Winger"],
       [
         ["bench", -1],
         ["bench", -1],
         ["bench", -1],
       ],
     ],
-    [0.2, 0.1, -0.3]
+    [0.2, 0.1, -0.3],
+    "14th"
   ),
   createPlayer(
     [
@@ -133,14 +136,15 @@ export const awaySubs = [
       "nunes.jpg",
       7,
       4,
-      ["box-to-box"],
+      ["Box-to-Box"],
       [
         ["bench", -1],
         ["sub", 7.2],
         ["sub", 6.8],
       ],
     ],
-    [0.2, 0.1, -0.3]
+    [0.2, 0.1, -0.3],
+    "33rd"
   ),
   createPlayer(
     [
@@ -148,14 +152,15 @@ export const awaySubs = [
       "lewis.jpg",
       8,
       2,
-      ["inverted full-back"],
+      ["Inverted Full-back"],
       [
         ["start", 7.2],
         ["bench", -1],
         ["start", 8.9, ["assist", "goal"]],
       ],
     ],
-    [0.05, -0.05, 0.1]
+    [0.05, -0.05, 0.1],
+    "1st"
   ),
   /*createPlayer(
     [
@@ -163,13 +168,14 @@ export const awaySubs = [
       "grealish.jpg",
       7,
       7,
-      ["winger"],
+      ["Winger"],
       [
         ["start", 7.2],
         ["bench", -1],
         ["start", 8.1, ["assist"]],
       ],
     ],
-    [-0.5, -1, 1.5]
+    [-0.5, -1, 1.5],
+    '4th'
   ),*/
 ];

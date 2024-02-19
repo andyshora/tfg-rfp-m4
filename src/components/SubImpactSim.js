@@ -52,6 +52,7 @@ import {
   FeedOverlay,
   RadarWrap,
   LogoWrap,
+  StatsWrap,
 } from "./SubImpactSim.styles";
 
 import {
@@ -287,14 +288,23 @@ export default function SubImpactSim() {
                 )}
               </StyledTableCell>
               <StyledTableCell align="left" style={{ paddingLeft: 0 }}>
-                <Button
-                  size="small"
-                  variant="outlined"
-                  title={`View stats`}
-                  onClick={() => selectPlayerStats(row.name)}
+                <Tooltip
+                  title="Open additional player stats"
+                  variant="light"
+                  placement="top"
+                  color="secondary"
+                  arrow
                 >
-                  <ChartIcon />
-                </Button>
+                  <Button
+                    size="small"
+                    color="primary"
+                    variant="outlined"
+                    title={`View stats`}
+                    onClick={() => selectPlayerStats(row.name)}
+                  >
+                    <ChartIcon />
+                  </Button>
+                </Tooltip>
               </StyledTableCell>
               <StyledTableCell align="left">
                 {Object.keys(subInsights).includes(row.name) ? (
@@ -334,11 +344,11 @@ export default function SubImpactSim() {
               <StyledTableCell align="left">
                 {row.tags.map((tag, i) => (
                   <Chip
+                    size="small"
                     key={i}
                     label={tag}
                     color="primary"
                     style={{
-                      textTransform: "uppercase",
                       color: "white",
                       background:
                         "linear-gradient(-192deg, #1d238a 0%, #222677 48.5%, #090f68 49%, #0e1151 100%)",
@@ -346,7 +356,7 @@ export default function SubImpactSim() {
                   />
                 ))}
               </StyledTableCell>
-              <StyledTableCell align="left">-</StyledTableCell>
+              <StyledTableCell align="left">{row.quality}</StyledTableCell>
               <StyledTableCell
                 align="left"
                 width={250}
@@ -408,21 +418,33 @@ export default function SubImpactSim() {
               }}
             >
               <StyledTableCell colSpan={8}>
-                <RadarWrap>
-                  <Typography variant="h6" component="h6">
-                    {row.name} vs Premier League midfielders
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    component="span"
-                    style={{ fontStyle: "italic" }}
-                    gutterBottom
-                  >
-                    over the last 3 seasons (percentile)
-                  </Typography>
+                <StatsWrap>
+                  <div style={{ position: "absolute", right: 0 }}>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => setActiveSubRow("")}
+                    >
+                      Close
+                    </Button>
+                  </div>
+                  <RadarWrap>
+                    <Typography variant="h6" component="h6">
+                      {row.name} vs Premier League midfielders
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      component="span"
+                      style={{ fontStyle: "italic" }}
+                      gutterBottom
+                    >
+                      over the last 3 seasons (percentile)
+                    </Typography>
 
-                  <RadarChart data={radarData} player={awaySubs[0].name} />
-                </RadarWrap>
+                    <RadarChart data={radarData} player={awaySubs[0].name} />
+                  </RadarWrap>
+                </StatsWrap>
               </StyledTableCell>
             </StyledTableRow>
             <StyledTableRow
@@ -839,7 +861,17 @@ export default function SubImpactSim() {
                   <StyledTableCell align="left">Stats</StyledTableCell>
                   <StyledTableCell align="left">Insights</StyledTableCell>
                   <StyledTableCell align="left">Traits</StyledTableCell>
-                  <StyledTableCell align="left">Quality</StyledTableCell>
+                  <StyledTableCell align="left">
+                    <Tooltip
+                      title="Player quality rank in the Premier League relative to others in the same position. For players aged under 23, we benchmark relative to other U23s in the same position."
+                      variant="light"
+                      placement="top"
+                      color="secondary"
+                      arrow
+                    >
+                      Player Quality
+                    </Tooltip>
+                  </StyledTableCell>
                   <StyledTableCell align="left">Form</StyledTableCell>
                 </StyledHeaderTableRow>
               </TableHead>

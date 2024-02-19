@@ -36,6 +36,11 @@ export const FeedOverlay = styled.div`
   display: none;
 `;
 
+export const StatsWrap = styled.section`
+  padding: 0.5rem;
+  position: relative;
+`;
+
 export const RadarWrap = styled.div`
   width: 400px;
   height: 400px;
