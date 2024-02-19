@@ -6,8 +6,21 @@ export const Header = styled.header`
   left: 0;
   border-bottom: 1px solid white;
   padding: 0.5rem 2rem 0.5rem 1rem;
-  background: #0e1151;
+  background: white;
   clip-path: polygon(0 0, 100% 0, 84% 100%, 0% 100%);
+  z-index: 1;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0e1151;
+    z-index: -1;
+  }
 `;
 
 export const FeedOverlay = styled.div`
@@ -28,6 +41,11 @@ export const RadarWrap = styled.div`
   height: 400px;
   posion: relative;
   z-index: 0;
+`;
+
+export const LogoWrap = styled.div`
+  height: 26px;
+  background: white;
 `;
 
 export const HintWrap = styled.div`
@@ -213,7 +231,7 @@ position: relative;
     color: #fff;
     position: absolute;
     width 80px;
-    margin-left: -20px;
+    margin-left: -24px;
     text-align: center;
     left: 50%;
     top: -21px;

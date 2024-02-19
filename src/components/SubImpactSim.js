@@ -51,6 +51,7 @@ import {
   InsightsChipsWrap,
   FeedOverlay,
   RadarWrap,
+  LogoWrap,
 } from "./SubImpactSim.styles";
 
 import {
@@ -172,7 +173,7 @@ export default function SubImpactSim() {
   const [activeSubOn, setActiveSubOn] = React.useState("");
   const [activeSubRow, setActiveSubRow] = React.useState("");
 
-  const preds = activeSubOn && activeSubOff ? [53, 36.5, 10.5] : [63, 28, 9];
+  const preds = activeSubOn && activeSubOff ? [62, 27.5, 10.5] : [63, 28, 9];
 
   function subOff(player) {
     setActiveSubOff(player);
@@ -484,7 +485,7 @@ export default function SubImpactSim() {
     );
   }
   return (
-    <div>
+    <div style={{ minWidth: 800 }}>
       <Box
         sx={{
           minHeight: 400,
@@ -493,6 +494,12 @@ export default function SubImpactSim() {
         }}
       >
         <Header>
+          <LogoWrap>
+            <img
+              src="/assets/images/skysports-pl-logo.svg"
+              alt="Sky Sports Premier League"
+            />
+          </LogoWrap>
           <Typography
             variant="h3"
             component="h3"
@@ -722,10 +729,10 @@ export default function SubImpactSim() {
           >
             <Grid item xs={4} align="center">
               <MatchPredictionBarWrap
-                delta={-10}
+                delta={-1}
                 deltaShowing={activeSubOff && activeSubOn}
                 deltaColor={
-                  -10 > 0 ? "white" : predictionColorScale(-10 / 100).css()
+                  -1 > 0 ? "white" : predictionColorScale(-1 / 100).css()
                 }
               >
                 <div
@@ -745,10 +752,10 @@ export default function SubImpactSim() {
             </Grid>
             <Grid item xs={4} align="center">
               <MatchPredictionBarWrap
-                delta={8.5}
+                delta={-0.5}
                 deltaShowing={activeSubOff && activeSubOn}
                 deltaColor={
-                  8.5 > 0 ? "white" : predictionColorScale(8.5 / 100).css()
+                  -0.5 > 0 ? "white" : predictionColorScale(-0.5 / 100).css()
                 }
               >
                 <div
