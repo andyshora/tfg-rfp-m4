@@ -1,0 +1,110 @@
+[
+    {
+        "date": "2024-02-17T15:00:00+00:00",
+        "home_team": "Fulham",
+        "away_team": "Aston Villa",
+        "quality": 0.91,
+        "jeopardy": 0.89,
+        "connection": 0.62,
+        "score": 0.86
+    },
+    {
+        "date": "2024-02-19T20:00:00+00:00",
+        "home_team": "Athletic Bilbao",
+        "away_team": "Girona",
+        "quality": 0.92,
+        "jeopardy": 0.75,
+        "connection": 0.69,
+        "score": 0.82
+    },
+    {
+        "date": "2024-02-17T17:30:00+00:00",
+        "home_team": "Manchester City",
+        "away_team": "Chelsea",
+        "quality": 0.97,
+        "jeopardy": 0.62,
+        "connection": 0.7,
+        "score": 0.79
+    },
+    {
+        "date": "2024-02-16T20:00:00+00:00",
+        "home_team": "Lyon",
+        "away_team": "Nice",
+        "quality": 0.58,
+        "jeopardy": 0.91,
+        "connection": 0.84,
+        "score": 0.75
+    },
+    {
+        "date": "2024-02-17T12:30:00+00:00",
+        "home_team": "Brentford",
+        "away_team": "Liverpool",
+        "quality": 0.96,
+        "jeopardy": 0.71,
+        "connection": 0.16,
+        "score": 0.74
+    },
+    {
+        "date": "2024-02-18T11:30:00+00:00",
+        "home_team": "Lazio",
+        "away_team": "Bologna",
+        "quality": 0.65,
+        "jeopardy": 0.82,
+        "connection": 0.73,
+        "score": 0.73
+    },
+    {
+        "date": "2024-02-17T15:00:00+00:00",
+        "home_team": "Nottingham Forest",
+        "away_team": "West Ham",
+        "quality": 0.63,
+        "jeopardy": 0.9,
+        "connection": 0.56,
+        "score": 0.73
+    },
+    {
+        "date": "2024-02-17T14:30:00+00:00",
+        "home_team": "Wolfsburg",
+        "away_team": "Borussia Dortmund",
+        "quality": 0.86,
+        "jeopardy": 0.58,
+        "connection": 0.65,
+        "score": 0.72
+    },
+    {
+        "date": "2024-02-18T16:05:00+00:00",
+        "home_team": "Reims",
+        "away_team": "Lens",
+        "quality": 0.37,
+        "jeopardy": 0.94,
+        "connection": 0.91,
+        "score": 0.68
+    },
+    {
+        "date": "2024-02-17T17:30:00+00:00",
+        "home_team": "Celta Vigo",
+        "away_team": "Barcelona",
+        "quality": 0.89,
+        "jeopardy": 0.78,
+        "connection": 0.83,
+        "score": 0.81
+    },
+    {
+        "date": "2024-02-18T14:00:00+00:00",
+        "home_team": "Sevilla",
+        "away_team": "Real Madrid",
+        "quality": 0.93,
+        "jeopardy": 0.85,
+        "connection": 0.87,
+        "score": 0.88
+    },
+    {
+        "date": "2024-02-18T17:00:00+00:00",
+        "home_team": "Inter Milan",
+        "away_team": "AS Roma",
+        "quality": 0.8,
+        "jeopardy": 0.82,
+        "connection": 0.79,
+        "score": 0.8"
+    }
+]

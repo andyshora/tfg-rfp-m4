@@ -10,11 +10,33 @@ export const Header = styled.header`
   clip-path: polygon(0 0, 100% 0, 84% 100%, 0% 100%);
 `;
 
+export const FeedOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  height: 400px;
+  background: #0e1151;
+  border: 1px solid white;
+  padding: 1rem;
+  color: white;
+  display: none;
+`;
+
+export const RadarWrap = styled.div`
+  width: 400px;
+  height: 400px;
+`;
+
 export const HintWrap = styled.div`
-  display: flex;
+  display: none;
   position: absolute;
   left: 0;
   flex-direction: column;
+
+  @media (min-width: 1024px) {
+    display: flex;
+  }
 
   > div {
     font-size: 1rem;
@@ -181,6 +203,7 @@ position: relative;
   );
   border-radius: 5px;
   padding: 8px;
+  min-width: 58px;
 
   &::before {
     content: ${(p) => `"${p.mins}mins"`};

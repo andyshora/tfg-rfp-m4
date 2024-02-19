@@ -26,6 +26,7 @@ import SubOffIcon from "@mui/icons-material/ArrowDropDown";
 import DeleteIcon from "@mui/icons-material/Clear";
 import InjuredIcon from "@mui/icons-material/Healing";
 import LightbulbIcon from "@mui/icons-material/Lightbulb";
+import ChartIcon from "@mui/icons-material/Equalizer";
 
 import { tableCellClasses } from "@mui/material/TableCell";
 
@@ -48,6 +49,8 @@ import {
   AwayTeamWrap,
   HintWrap,
   InsightsChipsWrap,
+  FeedOverlay,
+  RadarWrap,
 } from "./SubImpactSim.styles";
 
 import {
@@ -57,6 +60,10 @@ import {
   awaySubs,
   subInsights,
 } from "../data/index";
+import RadarChart from "./RadarChart";
+
+import radarData from "../data/radar.json";
+import { act } from "react-dom/test-utils";
 
 const predictionColorScale = chroma.scale([
   "#FF0000",
@@ -164,6 +171,7 @@ export default function SubImpactSim() {
   const [activeTeamIndex, setActiveTeamIndex] = React.useState(1);
   const [activeSubOff, setActiveSubOff] = React.useState("");
   const [activeSubOn, setActiveSubOn] = React.useState("");
+  const [activeSubRow, setActiveSubRow] = React.useState("");
 
   const preds = activeSubOn && activeSubOff ? [53, 36.5, 10.5] : [63, 28, 9];
 
@@ -172,6 +180,13 @@ export default function SubImpactSim() {
   }
   function subOn(player) {
     setActiveSubOn(player);
+  }
+  function selectPlayerStats(player) {
+    if (activeSubRow === player) {
+      setActiveSubRow("");
+    } else {
+      setActiveSubRow(player);
+    }
   }
   function getPlayersOnPitch(players, leftOffset) {
     return players.map((player, index) => (
@@ -218,138 +233,166 @@ export default function SubImpactSim() {
     return (
       <TableBody>
         {players.map((row) => (
-          <StyledTableRow
-            key={row.name}
-            style={{
-              background:
-                row.name === activeSubOn ? "rgba(100, 255, 100, 0.2)" : "",
-            }}
-          >
-            <StyledTableCell align="right">
-              <Button
-                disabled={!activeSubOff || activeSubOn}
-                onClick={() => subOn(row.name)}
-                variant="outlined"
-                title={`See the impact of subbing in ${row.name}`}
-              >
-                <KeyboardArrowUpIcon />
-              </Button>
-            </StyledTableCell>
-            <StyledTableCell width={1}>
-              <Avatar
-                alt={row.name}
-                src={`/assets/images/players/${row.image}`}
-              />
-            </StyledTableCell>
-            <StyledTableCell align="left" width={200}>
-              {row.name}{" "}
-              {row.name === activeSubOn ? (
-                <SubOnIcon
-                  style={{ color: "lime", top: 7, position: "relative" }}
+          <React.Fragment key={`subs-row-${row.name}`}>
+            <StyledTableRow
+              style={{
+                background:
+                  row.name === activeSubOn ? "rgba(100, 255, 100, 0.2)" : "",
+              }}
+            >
+              <StyledTableCell align="right">
+                <Button
+                  disabled={!activeSubOff || activeSubOn}
+                  onClick={() => subOn(row.name)}
+                  variant="outlined"
+                  title={`See the impact of subbing in ${row.name}`}
+                >
+                  <KeyboardArrowUpIcon />
+                </Button>
+              </StyledTableCell>
+              <StyledTableCell width={1}>
+                <Avatar
+                  alt={row.name}
+                  src={`/assets/images/players/${row.image}`}
                 />
-              ) : (
-                ""
-              )}
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {Object.keys(subInsights).includes(row.name) ? (
-                <InsightsChipsWrap>
-                  {subInsights[row.name].map((insight, i) => (
-                    <Tooltip
-                      key={`insight-${row.name}-${i}`}
-                      title={insight}
-                      variant="light"
-                      placement="top"
-                      color="secondary"
-                      arrow
-                    >
-                      <Chip
-                        label={
-                          <LightbulbIcon
+              </StyledTableCell>
+              <StyledTableCell align="left" width={200}>
+                {row.name}{" "}
+                {row.name === activeSubOn ? (
+                  <SubOnIcon
+                    style={{ color: "lime", top: 7, position: "relative" }}
+                  />
+                ) : (
+                  ""
+                )}
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                <Button
+                  size="small"
+                  variant="outlined"
+                  title={`View stats`}
+                  onClick={() => selectPlayerStats(row.name)}
+                >
+                  <ChartIcon />
+                </Button>
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                {Object.keys(subInsights).includes(row.name) ? (
+                  <InsightsChipsWrap>
+                    {subInsights[row.name].map((insight, i) => (
+                      <Tooltip
+                        key={`insight-${row.name}-${i}`}
+                        title={insight}
+                        variant="light"
+                        placement="top"
+                        color="secondary"
+                        arrow
+                      >
+                        <Chip
+                          label={
+                            <LightbulbIcon
+                              style={{
+                                color: "white",
+                                width: 14,
+                                height: 14,
+                                marginTop: 4,
+                              }}
+                            />
+                          }
+                          color="primary"
+                          variant="outlined"
+                          size="small"
+                          style={{ marginRight: 3 }}
+                        />
+                      </Tooltip>
+                    ))}
+                  </InsightsChipsWrap>
+                ) : (
+                  ""
+                )}
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                {row.tags.map((tag, i) => (
+                  <Chip
+                    key={i}
+                    label={tag}
+                    color="primary"
+                    style={{
+                      textTransform: "uppercase",
+                      color: "white",
+                      background:
+                        "linear-gradient(-192deg, #1d238a 0%, #222677 48.5%, #090f68 49%, #0e1151 100%)",
+                    }}
+                  />
+                ))}
+              </StyledTableCell>
+              <StyledTableCell align="left">-</StyledTableCell>
+              <StyledTableCell align="left" width={250}>
+                <Grid container spacing={0}>
+                  {row.recentGames.map(
+                    ([starting, rating, achievements = []], i) => {
+                      const benchOrInjured =
+                        starting === "bench" ? (
+                          <Bench />
+                        ) : (
+                          <InjuredIcon
                             style={{
-                              color: "white",
-                              width: 14,
-                              height: 14,
-                              marginTop: 4,
+                              width: 16,
+                              height: 16,
+                              marginTop: 10,
+                              opacity: 0.6,
                             }}
                           />
-                        }
-                        color="primary"
-                        variant="outlined"
-                        size="small"
-                        style={{ marginRight: 3 }}
-                      />
-                    </Tooltip>
-                  ))}
-                </InsightsChipsWrap>
-              ) : (
-                ""
-              )}
-            </StyledTableCell>
-            <StyledTableCell align="left">
-              {row.tags.map((tag, i) => (
-                <Chip
-                  key={i}
-                  label={tag}
-                  color="primary"
-                  style={{
-                    textTransform: "uppercase",
-                    color: "white",
-                    background:
-                      "linear-gradient(-192deg, #1d238a 0%, #222677 48.5%, #090f68 49%, #0e1151 100%)",
-                  }}
-                />
-              ))}
-            </StyledTableCell>
-            <StyledTableCell align="left">-</StyledTableCell>
-            <StyledTableCell align="left" width={250}>
-              <Grid container spacing={0}>
-                {row.recentGames.map(
-                  ([starting, rating, achievements = []], i) => {
-                    const benchOrInjured =
-                      starting === "bench" ? (
-                        <Bench />
-                      ) : (
-                        <InjuredIcon
-                          style={{
-                            width: 16,
-                            height: 16,
-                            marginTop: 10,
-                            opacity: 0.6,
-                          }}
-                        />
-                      );
-                    return (
-                      <Grid xs={3} key={i}>
-                        <FormCellWrap>
-                          {rating >= 0 ? (
-                            <Chip label={rating} />
-                          ) : (
-                            benchOrInjured
-                          )}
+                        );
+                      return (
+                        <Grid xs={3} key={i}>
+                          <FormCellWrap>
+                            {rating >= 0 ? (
+                              <Chip label={rating} />
+                            ) : (
+                              benchOrInjured
+                            )}
 
-                          <AchievementsWrap>
-                            {achievements.map((ach, i) => {
-                              switch (ach) {
-                                case "goal":
-                                  return <Goal key={`${row.name}-ach-${i}`} />;
-                                case "assist":
-                                  return (
-                                    <Assist key={`${row.name}-ach-${i}`} />
-                                  );
-                                default:
-                                  return "";
-                              }
-                            })}
-                          </AchievementsWrap>
-                        </FormCellWrap>
-                      </Grid>
-                    );
-                  }
-                )}
-              </Grid>
-            </StyledTableCell>
-          </StyledTableRow>
+                            <AchievementsWrap>
+                              {achievements.map((ach, i) => {
+                                switch (ach) {
+                                  case "goal":
+                                    return (
+                                      <Goal key={`${row.name}-ach-${i}`} />
+                                    );
+                                  case "assist":
+                                    return (
+                                      <Assist key={`${row.name}-ach-${i}`} />
+                                    );
+                                  default:
+                                    return "";
+                                }
+                              })}
+                            </AchievementsWrap>
+                          </FormCellWrap>
+                        </Grid>
+                      );
+                    }
+                  )}
+                </Grid>
+              </StyledTableCell>
+            </StyledTableRow>
+            <StyledTableRow
+              style={{
+                display: activeSubRow === row.name ? "table-row" : "none",
+                background: "#00043B",
+              }}
+            >
+              <StyledTableCell colSpan={8}>
+                <RadarWrap>
+                  <RadarChart data={radarData} player={awaySubs[0].name} />
+                </RadarWrap>
+              </StyledTableCell>
+            </StyledTableRow>
+            <StyledTableRow
+              style={{ display: activeSubRow === row.name ? "block" : "none" }}
+            ></StyledTableRow>
+          </React.Fragment>
         ))}
       </TableBody>
     );
@@ -776,6 +819,11 @@ export default function SubImpactSim() {
           Hint: bring on Kevin De Bruyne
         </Typography>
       </HintWrap>
+      <FeedOverlay>
+        <Typography variant="h4" component="h4" gutterBottom>
+          Feed
+        </Typography>
+      </FeedOverlay>
     </div>
   );
 }
