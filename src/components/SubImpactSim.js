@@ -63,7 +63,6 @@ import {
 import RadarChart from "./RadarChart";
 
 import radarData from "../data/radar.json";
-import { act } from "react-dom/test-utils";
 
 const predictionColorScale = chroma.scale([
   "#FF0000",
@@ -241,14 +240,27 @@ export default function SubImpactSim() {
               }}
             >
               <StyledTableCell align="right">
-                <Button
-                  disabled={!activeSubOff || activeSubOn}
-                  onClick={() => subOn(row.name)}
-                  variant="outlined"
-                  title={`See the impact of subbing in ${row.name}`}
+                <Tooltip
+                  title={
+                    !activeSubOff || activeSubOn
+                      ? "Select a player to sub off first"
+                      : `See the impact of subbing in ${row.name}`
+                  }
+                  variant="light"
+                  placement="top"
+                  color="secondary"
+                  arrow
                 >
-                  <KeyboardArrowUpIcon />
-                </Button>
+                  <Button
+                    color="primary"
+                    disabled={!activeSubOff || activeSubOn}
+                    onClick={() => subOn(row.name)}
+                    variant="outlined"
+                    title={""}
+                  >
+                    <KeyboardArrowUpIcon />
+                  </Button>
+                </Tooltip>
               </StyledTableCell>
               <StyledTableCell width={1}>
                 <Avatar
@@ -266,7 +278,7 @@ export default function SubImpactSim() {
                   ""
                 )}
               </StyledTableCell>
-              <StyledTableCell align="left">
+              <StyledTableCell align="left" style={{ paddingLeft: 0 }}>
                 <Button
                   size="small"
                   variant="outlined"
@@ -327,7 +339,11 @@ export default function SubImpactSim() {
                 ))}
               </StyledTableCell>
               <StyledTableCell align="left">-</StyledTableCell>
-              <StyledTableCell align="left" width={250}>
+              <StyledTableCell
+                align="left"
+                width={250}
+                style={{ paddingLeft: 0 }}
+              >
                 <Grid container spacing={0}>
                   {row.recentGames.map(
                     ([starting, rating, achievements = []], i) => {
@@ -385,6 +401,18 @@ export default function SubImpactSim() {
             >
               <StyledTableCell colSpan={8}>
                 <RadarWrap>
+                  <Typography variant="h6" component="h6">
+                    {row.name} vs Premier League midfielders
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    component="body2"
+                    style={{ fontStyle: "italic" }}
+                    gutterBottom
+                  >
+                    over the last 3 seasons (percentile)
+                  </Typography>
+
                   <RadarChart data={radarData} player={awaySubs[0].name} />
                 </RadarWrap>
               </StyledTableCell>
@@ -775,6 +803,7 @@ export default function SubImpactSim() {
                   </StyledTableCell>
                   <StyledTableCell width={1}>&nbsp;</StyledTableCell>
                   <StyledTableCell align="left">&nbsp;</StyledTableCell>
+                  <StyledTableCell align="left">Stats</StyledTableCell>
                   <StyledTableCell align="left">Insights</StyledTableCell>
                   <StyledTableCell align="left">Traits</StyledTableCell>
                   <StyledTableCell align="left">Quality</StyledTableCell>

@@ -1,6 +1,7 @@
 // install (please try to align the version of installed @nivo packages)
 // yarn add @nivo/radar
 import { ResponsiveRadar } from "@nivo/radar";
+import { theme } from "../styles/nivo-theme";
 
 const LabelComponent = ({ id, x, y, anchor }) => (
   <g transform={`translate(${x}, ${y})`}>
@@ -35,8 +36,9 @@ const MyResponsiveRadar = ({ data, player = "" }) => (
   <ResponsiveRadar
     data={data}
     keys={["Kevin De Bruyne"]}
+    theme={theme}
     indexBy="key"
-    margin={{ top: 70, right: 80, bottom: 40, left: 80 }}
+    margin={{ top: 30, right: 80, bottom: 40, left: 80 }}
     borderColor={{ from: "color" }}
     borderWidth={0}
     gridLabelOffset={36}
@@ -49,7 +51,6 @@ const MyResponsiveRadar = ({ data, player = "" }) => (
     dotColor={"white"}
     dotBorderWidth={0}
     colors={{ scheme: "nivo" }}
-    blendMode="multiply"
     motionConfig="wobbly"
     legends={[
       {

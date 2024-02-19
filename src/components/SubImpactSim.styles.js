@@ -26,6 +26,8 @@ export const FeedOverlay = styled.div`
 export const RadarWrap = styled.div`
   width: 400px;
   height: 400px;
+  posion: relative;
+  z-index: 0;
 `;
 
 export const HintWrap = styled.div`
