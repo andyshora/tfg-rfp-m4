@@ -163,7 +163,7 @@ export const LiveScoreWrap = styled.div`
 export const MatchPredictionWrap = styled.div`
   position: relative;
   width: 600px;
-  margin: 1rem auto;
+  margin: 1rem auto 2rem;
 `;
 
 export const MatchPredictionBarWrap = styled.div`

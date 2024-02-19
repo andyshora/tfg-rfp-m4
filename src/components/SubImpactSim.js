@@ -78,42 +78,29 @@ const Bench = () => (
     height="24"
     viewBox="0 0 24 24"
     fill="rgba(255, 255, 255, 0.3)"
-    class="sc-uVWWZ oyaGW"
   >
     <path
       d="M21 6H3v5h18V6zM2 13v2h2v4h2v-4h12v4h2v-4h2v-2H2z"
       fill="var(--on-surface-nLv3)"
-      fill-rule="evenodd"
+      fillRule="evenodd"
     ></path>
   </svg>
 );
 const Assist = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="lime"
-    class="sc-uVWWZ oyaGW"
-  >
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="lime">
     <path
       d="m10.5 13.01 1.5 1.5-2.5.5-.5-.5 1.5-1.5zM7.92 1v1l2 1h2l1 6 1.5 4.5-1 1-10-10L5.92 1h2zM8 10.51l1.5 1.5-2.5.5-.5-.5 1.5-1.5zm-2.5-2.5L7 9.51l-2.5.5-.5-.5 1.5-1.5zm5.93.19H9.08l1.41 1.41h1.18l-.24-1.41zM3 5.51l1.5 1.5-2.5.5-.5-.5L3 5.51zm7.91-.01H6.43l1.41 1.41h3.31l-.24-1.41z"
       fill="var(--secondary-default)"
-      fill-rule="evenodd"
+      fillRule="evenodd"
     ></path>
   </svg>
 );
 const Goal = () => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="lime"
-    class="sc-uVWWZ oyaGW"
-  >
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="lime">
     <path
       d="M8 1c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.14-7-7 3.14-7 7-7zm-.01 1.73c-1.35 0-2.57.52-3.5 1.35l.92.55-.66 2.48-2.01.72V8c0 .67.13 1.31.36 1.9l.94-.48 1.55 1.73-.25 1.38c.78.46 1.69.73 2.66.73a5.29 5.29 0 0 0 5.26-5.28c0-1.51-.65-2.87-1.67-3.83l-.88.81-2.72-1.15.29-1.07c-.1-.01-.19-.01-.29-.01zm2.51 4.1 1.39 2.54-2.07 2.29-2.08-.81V7.83l2.76-1z"
       fill="var(--secondary-default)"
-      fill-rule="evenodd"
+      fillRule="evenodd"
     ></path>
   </svg>
 );
@@ -167,19 +154,37 @@ const StyledHeaderTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const startingPredictions = [62, 27.5, 10.5];
+
 export default function SubImpactSim() {
   const [activeTeamIndex, setActiveTeamIndex] = React.useState(1);
   const [activeSubOff, setActiveSubOff] = React.useState("");
   const [activeSubOn, setActiveSubOn] = React.useState("");
   const [activeSubRow, setActiveSubRow] = React.useState("");
+  const [activeImpact, setActiveImpact] = React.useState([0, 0, 0]);
 
-  const preds = activeSubOn && activeSubOff ? [62, 27.5, 10.5] : [63, 28, 9];
+  const preds = React.useMemo(() => {
+    return [
+      startingPredictions[0] + activeImpact[0],
+      startingPredictions[1] + activeImpact[1],
+      startingPredictions[2] + activeImpact[2],
+    ];
+  }, [activeImpact]);
 
   function subOff(player) {
     setActiveSubOff(player);
   }
   function subOn(player) {
     setActiveSubOn(player);
+
+    const activePlayers = activeTeamIndex ? awaySubs : homeSubs;
+    const activePlayer = activePlayers.filter((p) => p.name === player);
+
+    if (activePlayer.length) {
+      setActiveImpact(activePlayer[0].impactOnMatch);
+    } else {
+      setActiveImpact([0, 0, 0]);
+    }
   }
   function selectPlayerStats(player) {
     if (activeSubRow === player) {
@@ -216,7 +221,7 @@ export default function SubImpactSim() {
           </Button>
         ) : (
           <Button
-            disabled={activeSubOn}
+            disabled={!!activeSubOn}
             onClick={() => subOff(player.name)}
             size="small"
             variant="subOff"
@@ -252,15 +257,17 @@ export default function SubImpactSim() {
                   color="secondary"
                   arrow
                 >
-                  <Button
-                    color="primary"
-                    disabled={!activeSubOff || activeSubOn}
-                    onClick={() => subOn(row.name)}
-                    variant="outlined"
-                    title={""}
-                  >
-                    <KeyboardArrowUpIcon />
-                  </Button>
+                  <span>
+                    <Button
+                      color="primary"
+                      disabled={!activeSubOff || activeSubOn}
+                      onClick={() => subOn(row.name)}
+                      variant="outlined"
+                      title={""}
+                    >
+                      <KeyboardArrowUpIcon />
+                    </Button>
+                  </span>
                 </Tooltip>
               </StyledTableCell>
               <StyledTableCell width={1}>
@@ -362,7 +369,7 @@ export default function SubImpactSim() {
                           />
                         );
                       return (
-                        <Grid xs={3} key={i}>
+                        <Grid item xs={3} key={i}>
                           <FormCellWrap>
                             {rating >= 0 ? (
                               <Chip label={rating} />
@@ -407,7 +414,7 @@ export default function SubImpactSim() {
                   </Typography>
                   <Typography
                     variant="body2"
-                    component="body2"
+                    component="span"
                     style={{ fontStyle: "italic" }}
                     gutterBottom
                   >
@@ -476,6 +483,7 @@ export default function SubImpactSim() {
           onClick={() => {
             subOff("");
             subOn("");
+            setActiveImpact([0, 0, 0]);
           }}
           title={`Reset`}
         >
@@ -729,10 +737,12 @@ export default function SubImpactSim() {
           >
             <Grid item xs={4} align="center">
               <MatchPredictionBarWrap
-                delta={-1}
+                delta={activeImpact[0]}
                 deltaShowing={activeSubOff && activeSubOn}
                 deltaColor={
-                  -1 > 0 ? "white" : predictionColorScale(-1 / 100).css()
+                  activeImpact[0] > 0
+                    ? "white"
+                    : predictionColorScale(activeImpact[0] / 100).css()
                 }
               >
                 <div
@@ -745,17 +755,23 @@ export default function SubImpactSim() {
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ fontFamily: "monospace" }}
+                style={{
+                  fontFamily: "monospace",
+                  marginTop: 4,
+                  fontSize: "0.8rem",
+                }}
               >
                 Home Win: {preds[0]}%
               </Typography>
             </Grid>
             <Grid item xs={4} align="center">
               <MatchPredictionBarWrap
-                delta={-0.5}
+                delta={activeImpact[1]}
                 deltaShowing={activeSubOff && activeSubOn}
                 deltaColor={
-                  -0.5 > 0 ? "white" : predictionColorScale(-0.5 / 100).css()
+                  activeImpact[1] > 0
+                    ? "white"
+                    : predictionColorScale(activeImpact[1] / 100).css()
                 }
               >
                 <div
@@ -768,17 +784,23 @@ export default function SubImpactSim() {
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ fontFamily: "monospace" }}
+                style={{
+                  fontFamily: "monospace",
+                  marginTop: 4,
+                  fontSize: "0.8rem",
+                }}
               >
                 Draw: {preds[1]}%
               </Typography>
             </Grid>
             <Grid item xs={4} align="center">
               <MatchPredictionBarWrap
-                delta={1.5}
+                delta={activeImpact[2]}
                 deltaShowing={activeSubOff && activeSubOn}
                 deltaColor={
-                  1.5 > 0 ? "white" : predictionColorScale(1.5 / 100).css()
+                  activeImpact[2] > 0
+                    ? "white"
+                    : predictionColorScale(activeImpact[2] / 100).css()
                 }
               >
                 <div
@@ -791,7 +813,11 @@ export default function SubImpactSim() {
               <Typography
                 variant="h6"
                 component="h6"
-                style={{ fontFamily: "monospace" }}
+                style={{
+                  fontFamily: "monospace",
+                  marginTop: 4,
+                  fontSize: "0.8rem",
+                }}
               >
                 Away Win: {preds[2]}%
               </Typography>
