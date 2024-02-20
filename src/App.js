@@ -10,9 +10,14 @@ import "./styles/_global.css";
 import SkyTextFont from "./styles/fonts/sky-regular.woff";
 import { Button, Grid, Typography } from "@mui/material";
 
-import { AppWrap, FeedHandleWrap, FeedWrap } from "./App.styles";
-
-import InsightCard from "./components/InsightCard";
+import {
+  AppWrap,
+  FeedHandleWrap,
+  FeedWrap,
+  FeedStickyHeader,
+  FeedGutter,
+} from "./App.styles";
+import InsightCard, { LoadMoreInsightsBox } from "./components/InsightCard";
 import { tfgInsightsData } from "./data";
 
 const fgLight = "#fff";
@@ -148,6 +153,10 @@ const skysportsTheme = createTheme({
 
 export default function App() {
   const [feedDrawerOpen, setFeedDrawerOpen] = React.useState(false);
+  const [newInsights] = React.useState(
+    tfgInsightsData.filter((insight) => insight.img.indexOf("team") === -1)
+  );
+  console.log("newInsights", newInsights);
   function toggleDrawer(open) {
     setFeedDrawerOpen(open);
   }
@@ -180,22 +189,34 @@ export default function App() {
           }}
         >
           <FeedWrap>
-            <div style={{ position: "absolute", right: "1rem" }}>
-              <Button
-                size="small"
-                variant="outlined"
-                color="primary"
-                onClick={() => toggleDrawer(false)}
-              >
-                Close
-              </Button>
-            </div>
-            <Typography variant="h4" component="h4" gutterBottom>
-              TFG Insights Feed
-            </Typography>
+            <FeedStickyHeader>
+              <div style={{ position: "absolute", right: "1rem", zIndex: 2 }}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => toggleDrawer(false)}
+                >
+                  Close
+                </Button>
+              </div>
+              <FeedGutter>
+                <Typography variant="h4" component="h4" gutterBottom>
+                  TFG Insights Feed
+                </Typography>
+              </FeedGutter>
+              {newInsights && newInsights.length > 0 && (
+                <LoadMoreInsightsBox total={newInsights.length} />
+              )}
+            </FeedStickyHeader>
             <Grid container spacing={2}>
               {tfgInsightsData.map((insight, i) => (
-                <Grid item xs={12} key={`insight-${i}`}>
+                <Grid
+                  item
+                  xs={12}
+                  key={`insight-${i}`}
+                  style={{ padding: "0 1rem 1rem 2rem" }}
+                >
                   <InsightCard heading={insight.heading} img={insight.img}>
                     {insight.content}
                   </InsightCard>

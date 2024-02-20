@@ -298,7 +298,6 @@ export default function SubImpactSim() {
                     size="small"
                     color="primary"
                     variant="outlined"
-                    title={`View stats`}
                     onClick={() => selectPlayerStats(row.name)}
                   >
                     <ChartIcon />
@@ -867,7 +866,7 @@ export default function SubImpactSim() {
                       color="secondary"
                       arrow
                     >
-                      Quality Rank
+                      <>Quality Rank</>
                     </Tooltip>
                   </StyledTableCell>
                   <StyledTableCell align="left">Form</StyledTableCell>
