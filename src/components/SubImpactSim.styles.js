@@ -155,7 +155,7 @@ export const LiveScoreWrap = styled.div`
 export const MatchPredictionWrap = styled.div`
   position: relative;
   width: 600px;
-  margin: 1rem auto 2rem;
+  margin: 1.5rem auto 2rem;
 `;
 
 export const MatchPredictionBarWrap = styled.div`
@@ -271,6 +271,7 @@ export const HomeTeamWrap = styled.div`
   padding: 5px 10px;
   border-radius: 5px;
   transition: background 0.3s ease;
+  position: relative;
 `;
 
 export const AwayTeamWrap = styled.div`
@@ -282,4 +283,15 @@ export const AwayTeamWrap = styled.div`
   padding: 5px 10px;
   border-radius: 5px;
   transition: background 0.3s ease;
+  position: relative;
+`;
+
+export const GoalScorersWrap = styled.div`
+  position: absolute;
+  width: 200px;
+  display: block;
+  margin: 0;
+  clear: both;
+  widtj: 100%;
+  top: 40px;
 `;

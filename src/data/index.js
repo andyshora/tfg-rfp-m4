@@ -34,6 +34,12 @@ export const tfgInsightsData = [
   },
 ];
 
+export const goals = [
+  { mins: 26, scorer: "B.Silva", homeOrAway: 1 },
+  { mins: 35, scorer: "Isak", homeOrAway: 0 },
+  { mins: 37, scorer: "Gordon", homeOrAway: 0 },
+];
+
 export const tfgInsightsData2 = [
   {
     heading: "Insight about title race",

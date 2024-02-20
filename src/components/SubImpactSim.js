@@ -44,6 +44,7 @@ import {
   MatchPredictionWrap,
   MatchPredictionBarWrap,
   ScoreWrap,
+  GoalScorersWrap,
   PlayerOnPitch,
   HomeTeamWrap,
   AwayTeamWrap,
@@ -60,6 +61,7 @@ import {
   homeSubs,
   awaySubs,
   subInsights,
+  goals,
 } from "../data/index";
 import RadarChart from "./RadarChart";
 
@@ -717,6 +719,24 @@ export default function SubImpactSim() {
                     src={`/assets/images/clubs/newcastle.png`}
                   />
                   <Typography component="span">Newcastle United</Typography>
+                  <GoalScorersWrap>
+                    {goals
+                      .filter((g) => g.homeOrAway === 0)
+                      .map((g, i) => (
+                        <Typography
+                          key={i}
+                          variant="caption"
+                          component="span"
+                          style={{
+                            fontSize: "0.6rem",
+                            fontStyle: "italic",
+                            marginLeft: 10,
+                          }}
+                        >
+                          {g.scorer} {g.mins}'
+                        </Typography>
+                      ))}
+                  </GoalScorersWrap>
                 </HomeTeamWrap>
               </Grid>
               <Grid item xs={1} align="center">
@@ -738,6 +758,24 @@ export default function SubImpactSim() {
                     alt=""
                     src={`/assets/images/clubs/city.png`}
                   />
+                  <GoalScorersWrap>
+                    {goals
+                      .filter((g) => g.homeOrAway === 1)
+                      .map((g, i) => (
+                        <Typography
+                          key={i}
+                          variant="caption"
+                          component="span"
+                          style={{
+                            fontSize: "0.6rem",
+                            fontStyle: "italic",
+                            marginRight: 10,
+                          }}
+                        >
+                          {g.scorer} {g.mins}'
+                        </Typography>
+                      ))}
+                  </GoalScorersWrap>
                 </AwayTeamWrap>
               </Grid>
             </Grid>
