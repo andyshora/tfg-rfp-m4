@@ -18,7 +18,7 @@ import {
   FeedGutter,
 } from "./App.styles";
 import InsightCard, { LoadMoreInsightsBox } from "./components/InsightCard";
-import { tfgInsightsData } from "./data";
+import { tfgInsightsData, tfgInsightsData2 } from "./data";
 
 const fgLight = "#fff";
 const skyPlPrimary = "#030c7e";
@@ -153,12 +153,14 @@ const skysportsTheme = createTheme({
 
 export default function App() {
   const [feedDrawerOpen, setFeedDrawerOpen] = React.useState(false);
-  const [newInsights] = React.useState(
-    tfgInsightsData.filter((insight) => insight.img.indexOf("team") === -1)
-  );
-  console.log("newInsights", newInsights);
+  const [newInsights, setNewInsights] = React.useState(tfgInsightsData2);
+  const [allInsights, setAllInsights] = React.useState(tfgInsightsData);
   function toggleDrawer(open) {
     setFeedDrawerOpen(open);
+  }
+  function refreshInsights() {
+    setNewInsights([]);
+    setAllInsights([...newInsights, ...allInsights]);
   }
   return (
     <ThemeProvider theme={skysportsTheme}>
@@ -206,11 +208,14 @@ export default function App() {
                 </Typography>
               </FeedGutter>
               {newInsights && newInsights.length > 0 && (
-                <LoadMoreInsightsBox total={newInsights.length} />
+                <LoadMoreInsightsBox
+                  onRefresh={refreshInsights}
+                  total={newInsights.length}
+                />
               )}
             </FeedStickyHeader>
             <Grid container spacing={2}>
-              {tfgInsightsData.map((insight, i) => (
+              {allInsights.map((insight, i) => (
                 <Grid
                   item
                   xs={12}

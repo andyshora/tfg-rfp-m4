@@ -21,7 +21,7 @@ export const FeedStickyHeader = styled.header`
   top: 0;
   background: linear-gradient(0deg, transparent 0%, #0e1151 20%);
   z-index: 1;
-  padding: 1rem 0 1rem 0;
+  padding: 1rem 0 2rem 0;
 `;
 
 export const FeedHandleWrap = styled.header`

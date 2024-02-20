@@ -34,6 +34,27 @@ export const tfgInsightsData = [
   },
 ];
 
+export const tfgInsightsData2 = [
+  {
+    heading: "Insight about title race",
+    img: "/assets/images/clubs/city.png",
+    content:
+      "Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    heading: "Insight about Pep Guardiola",
+    img: "/assets/images/managers/pep.jpeg",
+    content:
+      "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    heading: "Insight about Oscar Bobb",
+    img: "/assets/images/players/bobb.jpg",
+    content:
+      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+];
+
 export const subInsights = {
   "Kevin De Bruyne": [
     "Returning from a hamstring injury which has kept him out for 3 months.",

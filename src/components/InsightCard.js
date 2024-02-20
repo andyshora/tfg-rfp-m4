@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Refresh } from "@mui/icons-material";
 
-export const LoadMoreInsightsBox = ({ total = 0 }) => {
+export const LoadMoreInsightsBox = ({ total = 0, onRefresh }) => {
   return (
     <Box
       sx={{
@@ -31,7 +31,12 @@ export const LoadMoreInsightsBox = ({ total = 0 }) => {
       <Typography variant="body2">
         {total} new insight{total !== 1 ? "s" : ""} have arrrived
       </Typography>
-      <Button variant="text" size="small" style={{ marginTop: 5 }}>
+      <Button
+        variant="text"
+        size="small"
+        style={{ marginTop: 5 }}
+        onClick={onRefresh}
+      >
         <Refresh style={{ width: 16, height: 16, marginRight: 5 }} /> Refresh
         Feed
       </Button>
