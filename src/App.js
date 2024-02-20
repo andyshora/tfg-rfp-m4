@@ -2,13 +2,17 @@ import * as React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 import SubImpactSim from "./components/SubImpactSim";
-import { CssBaseline, SwipeableDrawer } from "@mui/material";
-
-import "./styles/_vars-sports.css";
-import "./styles/_global.css";
 
 import SkyTextFont from "./styles/fonts/sky-regular.woff";
-import { Button, Grid, Typography } from "@mui/material";
+import {
+  Badge,
+  Button,
+  Grid,
+  IconButton,
+  Typography,
+  CssBaseline,
+  SwipeableDrawer,
+} from "@mui/material";
 
 import {
   AppWrap,
@@ -19,6 +23,10 @@ import {
 } from "./App.styles";
 import InsightCard, { LoadMoreInsightsBox } from "./components/InsightCard";
 import { tfgInsightsData, tfgInsightsData2 } from "./data";
+import ChatIcon from "@mui/icons-material/Chat";
+
+import "./styles/_vars-sports.css";
+import "./styles/_global.css";
 
 const fgLight = "#fff";
 const skyPlPrimary = "#030c7e";
@@ -176,6 +184,11 @@ export default function App() {
             variant="h5"
           >
             Open TFG Insights
+            <IconButton aria-label="cart">
+              <Badge badgeContent={allInsights.length} color="secondary">
+                <ChatIcon style={{ color: "white" }} />
+              </Badge>
+            </IconButton>
           </Typography>
         </FeedHandleWrap>
         <SwipeableDrawer
@@ -204,7 +217,7 @@ export default function App() {
               </div>
               <FeedGutter>
                 <Typography variant="h4" component="h4" gutterBottom>
-                  TFG Insights Feed
+                  <span>TFG Insights Feed</span>
                 </Typography>
               </FeedGutter>
               {newInsights && newInsights.length > 0 && (

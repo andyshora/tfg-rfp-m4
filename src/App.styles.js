@@ -26,7 +26,7 @@ export const FeedStickyHeader = styled.header`
 
 export const FeedHandleWrap = styled.header`
   position: absolute;
-  width: 230px;
+  width: 250px;
   white-space: nowrap;
   text-align: right;
   top: 0;
