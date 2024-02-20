@@ -7,6 +7,33 @@ function createPlayer(
   return { name, image: img, x, y, tags, recentGames, impactOnMatch, quality };
 }
 
+export const tfgInsightsData = [
+  {
+    heading: "Insight about Kevin De Bruyne",
+    img: "/assets/images/players/kdb.jpg",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    heading: "Insight about Newcastle leading",
+    img: "/assets/images/clubs/newcastle.png",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    heading: "Insight about Kieran Trippier assists",
+    img: "/assets/images/players/trippier.jpg",
+    content:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.",
+  },
+  {
+    heading: "Insight about Man City trailing",
+    img: "/assets/images/clubs/city.png",
+    content:
+      "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+];
+
 export const subInsights = {
   "Kevin De Bruyne": [
     "Returning from a hamstring injury which has kept him out for 3 months.",

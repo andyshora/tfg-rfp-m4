@@ -1,17 +1,19 @@
 import * as React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
-import CssBaseline from "@mui/material/CssBaseline";
 import SubImpactSim from "./components/SubImpactSim";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import { CssBaseline, SwipeableDrawer } from "@mui/material";
 
 import "./styles/_vars-sports.css";
 import "./styles/_global.css";
 
 import SkyTextFont from "./styles/fonts/sky-regular.woff";
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 
 import { AppWrap, FeedHandleWrap, FeedWrap } from "./App.styles";
+
+import InsightCard from "./components/InsightCard";
+import { tfgInsightsData } from "./data";
 
 const fgLight = "#fff";
 const skyPlPrimary = "#030c7e";
@@ -90,6 +92,14 @@ const skysportsTheme = createTheme({
     },
   },
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#1d258b",
+          color: "white",
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: `
         @font-face {
@@ -183,6 +193,15 @@ export default function App() {
             <Typography variant="h4" component="h4" gutterBottom>
               TFG Insights Feed
             </Typography>
+            <Grid container spacing={2}>
+              {tfgInsightsData.map((insight, i) => (
+                <Grid item xs={12} key={`insight-${i}`}>
+                  <InsightCard heading={insight.heading} img={insight.img}>
+                    {insight.content}
+                  </InsightCard>
+                </Grid>
+              ))}
+            </Grid>
           </FeedWrap>
         </SwipeableDrawer>
       </AppWrap>
