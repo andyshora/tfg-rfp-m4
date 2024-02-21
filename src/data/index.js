@@ -11,7 +11,7 @@ export const tfgInsightsData = [
   {
     type: "manager",
     typeKey: "Pep Guardiola",
-    heading: "Insight about Pep Guardiola",
+    heading: "Pep's Teams Top World Super League",
     img: "/assets/images/managers/pep.jpeg",
     content:
       "The best two club sides since 2008 according to our World Super League have been Barcelona in 2011 and Man City in 2023. Both teams have been coached by Pep.",
@@ -19,7 +19,7 @@ export const tfgInsightsData = [
   {
     type: "player",
     typeKey: "Kevin De Bruyne",
-    heading: "Insight about Kevin De Bruyne",
+    heading: "Playmaking Powerhouse",
     img: "/assets/images/players/kdb.jpg",
     content:
       "KDB has contributed (goals + assists) to 21% of Man City's goals in the Premier League during the Pep Guardiola era, only Haaland, Aguero & Sterling have contributed more during their respective tenures although all 3 are attackers.",
@@ -27,7 +27,7 @@ export const tfgInsightsData = [
   {
     type: "team",
     typeKey: "Man City",
-    heading: "City's Crown Slips?",
+    heading: "Rarely Underdogs",
     img: "/assets/images/clubs/city.png",
     content:
       "Man City won the Premier League in 22/23 but the lowest title chances they ever had was 45% in January 2023.",
@@ -35,7 +35,7 @@ export const tfgInsightsData = [
   {
     type: "manager",
     typeKey: "Pep Guardiola",
-    heading: "Insight about Pep Guardiola",
+    heading: "Consistency is King Under Pep",
     img: "/assets/images/managers/pep.jpeg",
     content:
       "Since July 2017 Manchester City have been the most consistent team in Europe under Guardiola.",
@@ -46,7 +46,7 @@ export const tfgInsightsData2 = [
   {
     type: "player",
     typeKey: "Kevin De Bruyne",
-    heading: "Insight about Kevin De Bruyne",
+    heading: "Assist Machine",
     img: "/assets/images/players/kdb.jpg",
     content:
       "KDB has the best xA (expected assists) per 90 of any Manchester City player this season in the Premier League.",
@@ -54,7 +54,7 @@ export const tfgInsightsData2 = [
   {
     type: "player",
     typeKey: "Oscar Bobb",
-    heading: "Insight about Oscar Bobb",
+    heading: "City's Rising Star",
     img: "/assets/images/players/bobb.jpg",
     content:
       "Only Erling Haaland has a better xG per 90 in the Premier League for Man City this season than Bobb (0.78).",
@@ -62,7 +62,7 @@ export const tfgInsightsData2 = [
   {
     type: "team",
     typeKey: "Man City",
-    heading: "City's Crown Slips?",
+    heading: "City's Crown Slips. Title Odds Plummet!",
     img: "/assets/images/clubs/city.png",
     content:
       "Man City started the season with a 61% chance of winning the Premier League. This peaked at 71% in November but has dropped to 37% today.",
@@ -70,7 +70,7 @@ export const tfgInsightsData2 = [
   {
     type: "player",
     typeKey: "Oscar Bobb",
-    heading: "Insight about Oscar Bobb",
+    heading: "From Youth Academy to Top Ranks",
     img: "/assets/images/players/bobb.jpg",
     content: "Bobb is the 13th best U21 player to play for City since 2012.",
   },

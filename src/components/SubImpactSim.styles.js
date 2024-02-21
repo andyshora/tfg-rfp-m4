@@ -38,6 +38,7 @@ export const PlayerInsightsWrap = styled.div`
   > div {
     margin: 1rem 0 0 0;
     background: rgb(255 255 255 / 7%);
+    grid-template-columns: 1fr;
   }
 
   img {
