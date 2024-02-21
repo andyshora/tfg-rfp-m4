@@ -60,12 +60,23 @@ import {
   awayPlayers,
   homeSubs,
   awaySubs,
-  subInsights,
   goals,
+  tfgInsightsData,
+  tfgInsightsData2,
 } from "../data/index";
 import RadarChart from "./RadarChart";
 
 import radarData from "../data/radar.json";
+
+// index sub insights by player
+const playerInsights = {};
+const allTfgInsights = tfgInsightsData.concat(tfgInsightsData2);
+homeSubs.concat(awaySubs).forEach((sub) => {
+  playerInsights[sub.name] = allTfgInsights.filter(
+    (insight) => insight.typeKey === sub.name
+  );
+});
+// console.log("playerInsights", playerInsights);
 
 const predictionColorScale = chroma.scale([
   "#FF0000",
@@ -307,39 +318,35 @@ export default function SubImpactSim() {
                 </Tooltip>
               </StyledTableCell>
               <StyledTableCell align="left">
-                {Object.keys(subInsights).includes(row.name) ? (
-                  <InsightsChipsWrap>
-                    {subInsights[row.name].map((insight, i) => (
-                      <Tooltip
-                        key={`insight-${row.name}-${i}`}
-                        title={insight}
-                        variant="light"
-                        placement="top"
-                        color="secondary"
-                        arrow
-                      >
-                        <Chip
-                          label={
-                            <LightbulbIcon
-                              style={{
-                                color: "white",
-                                width: 14,
-                                height: 14,
-                                marginTop: 4,
-                              }}
-                            />
-                          }
-                          color="primary"
-                          variant="outlined"
-                          size="small"
-                          style={{ marginRight: 3 }}
-                        />
-                      </Tooltip>
-                    ))}
-                  </InsightsChipsWrap>
-                ) : (
-                  ""
-                )}
+                <InsightsChipsWrap>
+                  {playerInsights[row.name].map((insight, i) => (
+                    <Tooltip
+                      key={`insight-tfg-${row.name}-${i}`}
+                      title={`${insight.heading}: ${insight.content}`}
+                      variant="light"
+                      placement="top"
+                      color="secondary"
+                      arrow
+                    >
+                      <Chip
+                        label={
+                          <LightbulbIcon
+                            style={{
+                              color: "white",
+                              width: 14,
+                              height: 14,
+                              marginTop: 4,
+                            }}
+                          />
+                        }
+                        color="primary"
+                        variant="outlined"
+                        size="small"
+                        style={{ marginRight: 3 }}
+                      />
+                    </Tooltip>
+                  ))}
+                </InsightsChipsWrap>
               </StyledTableCell>
               <StyledTableCell align="left">
                 {row.tags.map((tag, i) => (

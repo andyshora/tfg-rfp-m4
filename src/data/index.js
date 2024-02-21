@@ -9,28 +9,70 @@ function createPlayer(
 
 export const tfgInsightsData = [
   {
+    type: "manager",
+    typeKey: "Pep Guardiola",
+    heading: "Insight about Pep Guardiola",
+    img: "/assets/images/managers/pep.jpeg",
+    content:
+      "The best two club sides since 2008 according to our World Super League have been Barcelona in 2011 and Man City in 2023. Both teams have been coached by Pep.",
+  },
+  {
+    type: "player",
+    typeKey: "Kevin De Bruyne",
     heading: "Insight about Kevin De Bruyne",
     img: "/assets/images/players/kdb.jpg",
     content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "KDB has contributed (goals + assists) to 21% of Man City's goals in the Premier League during the Pep Guardiola era, only Haaland, Aguero & Sterling have contributed more during their respective tenures although all 3 are attackers.",
   },
   {
-    heading: "Insight about Newcastle leading",
-    img: "/assets/images/clubs/newcastle.png",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    heading: "Insight about Kieran Trippier assists",
-    img: "/assets/images/players/trippier.jpg",
-    content:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod.",
-  },
-  {
-    heading: "Insight about Man City trailing",
+    type: "team",
+    typeKey: "Man City",
+    heading: "City's Crown Slips?",
     img: "/assets/images/clubs/city.png",
     content:
-      "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Man City won the Premier League in 22/23 but the lowest title chances they ever had was 45% in January 2023.",
+  },
+  {
+    type: "manager",
+    typeKey: "Pep Guardiola",
+    heading: "Insight about Pep Guardiola",
+    img: "/assets/images/managers/pep.jpeg",
+    content:
+      "Since July 2017 Manchester City have been the most consistent team in Europe under Guardiola.",
+  },
+];
+
+export const tfgInsightsData2 = [
+  {
+    type: "player",
+    typeKey: "Kevin De Bruyne",
+    heading: "Insight about Kevin De Bruyne",
+    img: "/assets/images/players/kdb.jpg",
+    content:
+      "KDB has the best xA (expected assists) per 90 of any Manchester City player this season in the Premier League.",
+  },
+  {
+    type: "player",
+    typeKey: "Oscar Bobb",
+    heading: "Insight about Oscar Bobb",
+    img: "/assets/images/players/bobb.jpg",
+    content:
+      "Only Erling Haaland has a better xG per 90 in the Premier League for Man City this season than Bobb (0.78).",
+  },
+  {
+    type: "team",
+    typeKey: "Man City",
+    heading: "City's Crown Slips?",
+    img: "/assets/images/clubs/city.png",
+    content:
+      "Man City started the season with a 61% chance of winning the Premier League. This peaked at 71% in November but has dropped to 37% today.",
+  },
+  {
+    type: "player",
+    typeKey: "Oscar Bobb",
+    heading: "Insight about Oscar Bobb",
+    img: "/assets/images/players/bobb.jpg",
+    content: "Bobb is the 13th best U21 player to play for City since 2012.",
   },
 ];
 
@@ -39,41 +81,6 @@ export const goals = [
   { mins: 35, scorer: "Isak", homeOrAway: 0 },
   { mins: 37, scorer: "Gordon", homeOrAway: 0 },
 ];
-
-export const tfgInsightsData2 = [
-  {
-    heading: "Insight about title race",
-    img: "/assets/images/clubs/city.png",
-    content:
-      "Adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    heading: "Insight about Pep Guardiola",
-    img: "/assets/images/managers/pep.jpeg",
-    content:
-      "Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    heading: "Insight about Oscar Bobb",
-    img: "/assets/images/players/bobb.jpg",
-    content:
-      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-];
-
-export const subInsights = {
-  "Kevin De Bruyne": [
-    "Returning from a hamstring injury which has kept him out for 3 months.",
-    "Scored or assisted in previous 5 games before injury. (todo: not real)",
-    "Assisted in all games when coming on as a sub last season. (todo: not real)",
-    "Scored in last 3 fixtures against Newcastle. (todo: not real)",
-  ],
-  "Oscar Bobb": [
-    "Highly rated 20yo, already has 1 goal in 4 appearances for Norway.",
-    "Scored 3 goals in last 5 games for the U23s. (todo: not real)",
-    "Has been training with the first team for just 3 weeks. (todo: not real)",
-  ],
-};
 
 export const homePlayers = [
   createPlayer(["Dubravka", "", 0, 4]),

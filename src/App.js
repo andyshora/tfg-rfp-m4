@@ -235,7 +235,11 @@ export default function App() {
                   key={`insight-${i}`}
                   style={{ padding: "0 1rem 1rem 2rem" }}
                 >
-                  <InsightCard heading={insight.heading} img={insight.img}>
+                  <InsightCard
+                    heading={insight.heading}
+                    img={insight.img}
+                    type={insight.type}
+                  >
                     {insight.content}
                   </InsightCard>
                 </Grid>
