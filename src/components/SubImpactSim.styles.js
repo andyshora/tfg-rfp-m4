@@ -26,6 +26,23 @@ export const Header = styled.header`
 export const StatsWrap = styled.section`
   padding: 0.5rem;
   position: relative;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+`;
+
+export const PlayerInsightsWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 1rem 1rem;
+
+  > div {
+    margin: 1rem 0 0 0;
+    background: rgb(255 255 255 / 7%);
+  }
+
+  img {
+    display: none;
+  }
 `;
 
 export const RadarWrap = styled.div`
@@ -45,6 +62,7 @@ export const HintWrap = styled.div`
   position: absolute;
   left: 0;
   flex-direction: column;
+  transition: opacity 0.5s ease;
 
   @media (min-width: 1024px) {
     display: flex;

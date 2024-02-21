@@ -52,6 +52,7 @@ const MyResponsiveRadar = ({ data, player = "" }) => (
     dotBorderWidth={0}
     colors={{ scheme: "nivo" }}
     motionConfig="wobbly"
+    isInteractive={false}
     legends={[
       {
         anchor: "top-left",

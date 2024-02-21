@@ -95,7 +95,7 @@ export default function InsightCard({
   type = "player",
 }) {
   return (
-    <Card sx={{ display: "flex" }}>
+    <Card sx={{ display: "grid", gridTemplateColumns: "1fr 86px" }}>
       <Box
         sx={{ display: "flex", flexDirection: "column", position: "relative" }}
       >
@@ -120,7 +120,7 @@ export default function InsightCard({
       </Box>
       <CardMedia
         component="img"
-        sx={{ width: 86, minHeight: 140, background: "white" }}
+        sx={{ width: 86, minHeight: 140, background: "white", height: "100%" }}
         image={img}
         alt=""
       />

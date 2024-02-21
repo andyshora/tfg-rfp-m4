@@ -30,6 +30,8 @@ import ChartIcon from "@mui/icons-material/Equalizer";
 
 import { tableCellClasses } from "@mui/material/TableCell";
 
+import InsightCard from "./InsightCard";
+
 import {
   AchievementsWrap,
   FormCellWrap,
@@ -53,6 +55,7 @@ import {
   RadarWrap,
   LogoWrap,
   StatsWrap,
+  PlayerInsightsWrap,
 } from "./SubImpactSim.styles";
 
 import {
@@ -175,6 +178,11 @@ export default function SubImpactSim() {
   const [activeSubOn, setActiveSubOn] = React.useState("");
   const [activeSubRow, setActiveSubRow] = React.useState("");
   const [activeImpact, setActiveImpact] = React.useState([0, 0, 0]);
+  const [showHints, setShowHints] = React.useState(true);
+
+  function handleHintTapped() {
+    setShowHints(false);
+  }
 
   const preds = React.useMemo(() => {
     return [
@@ -451,6 +459,22 @@ export default function SubImpactSim() {
 
                     <RadarChart data={radarData} player={awaySubs[0].name} />
                   </RadarWrap>
+                  <PlayerInsightsWrap>
+                    {playerInsights[row.name].length > 0 ? (
+                      <Typography variant="h4">Live Player Insights</Typography>
+                    ) : (
+                      ""
+                    )}
+                    {playerInsights[row.name].map((insight, i) => (
+                      <InsightCard
+                        heading={insight.heading}
+                        img={insight.img}
+                        type={insight.type}
+                      >
+                        {insight.content}
+                      </InsightCard>
+                    ))}
+                  </PlayerInsightsWrap>
                 </StatsWrap>
               </StyledTableCell>
             </StyledTableRow>
@@ -925,7 +949,10 @@ export default function SubImpactSim() {
           </TableContainer>
         </Box>
       </Container>
-      <HintWrap style={{ top: 610 }}>
+      <HintWrap
+        onClick={handleHintTapped}
+        style={{ opacity: showHints ? 1 : 0, top: 610 }}
+      >
         <div>
           <Typography variant="caption" component="p" gutterBottom>
             Select team
@@ -935,7 +962,10 @@ export default function SubImpactSim() {
           Hint: select Man City
         </Typography>
       </HintWrap>
-      <HintWrap style={{ top: 220 }}>
+      <HintWrap
+        onClick={handleHintTapped}
+        style={{ opacity: showHints ? 1 : 0, top: 220 }}
+      >
         <div>
           <Typography variant="caption" component="p" gutterBottom>
             Select player to sub off
@@ -945,7 +975,10 @@ export default function SubImpactSim() {
           Hint: replace Silva
         </Typography>
       </HintWrap>
-      <HintWrap style={{ top: 700 }}>
+      <HintWrap
+        onClick={handleHintTapped}
+        style={{ opacity: showHints ? 1 : 0, top: 700 }}
+      >
         <div>
           <Typography variant="caption" component="p" gutterBottom>
             Select replacement
